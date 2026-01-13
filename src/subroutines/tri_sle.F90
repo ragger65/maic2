@@ -2,15 +2,13 @@
 !
 !  Subroutine :  t r i _ s l e
 !
-!> @file
-!!
 !! Solution of a system of linear equations Ax=b with tridiagonal matrix A.
 !!
-!! @section Copyright
+!!##### Authors
 !!
-!! Copyright 2010-2013 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
+!! Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
 !!
-!! @section License
+!!##### License
 !!
 !! This file is part of MAIC-2.
 !!
@@ -21,23 +19,17 @@
 !!
 !! MAIC-2 is distributed in the hope that it will be useful,
 !! but WITHOUT ANY WARRANTY; without even the implied warranty of
-!! MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!! MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 !! GNU General Public License for more details.
 !!
 !! You should have received a copy of the GNU General Public License
-!! along with MAIC-2.  If not, see <http://www.gnu.org/licenses/>.
-!<
+!! along with MAIC-2. If not, see <https://www.gnu.org/licenses/>.
+!
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 !-------------------------------------------------------------------------------
 !> Solution of a system of linear equations Ax=b with tridiagonal matrix A.
-!! @param[in]  a0       a0(j) is element A_(j,j-1) of matrix A
-!! @param[in]  a1       a1(j) is element A_(j,j)   of matrix A
-!! @param[in]  a2       a2(j) is element A_(j,j+1) of matrix A
-!! @param[in]  b        inhomogeneity vector
-!! @param[in]  n_rows   size of matrix A (indices run from 0 (!!!) to n_rows)
-!! @param[out] x        solution vector.
-!<------------------------------------------------------------------------------
+!-------------------------------------------------------------------------------
 subroutine tri_sle(a0, a1, a2, x, b, n_rows)
 
 use maic2_types
@@ -47,6 +39,13 @@ implicit none
 integer(i4b), intent(in) :: n_rows
 real(dp), dimension(0:*), intent(inout) :: a0, a1, a2, b
 real(dp), dimension(0:*), intent(out)   :: x
+
+   ! a0: a0(j) is element A_(j,j-1) of matrix A
+   ! a1: a1(j) is element A_(j,j)   of matrix A
+   ! a2: a2(j) is element A_(j,j+1) of matrix A
+   ! b: inhomogeneity vector
+   ! n_rows: size of matrix A (indices run from 0 (!) to n_rows)
+   ! x: solution vector.
 
 integer(i4b) :: n
 real(dp), allocatable, dimension(:) :: help_x

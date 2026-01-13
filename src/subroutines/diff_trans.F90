@@ -2,15 +2,13 @@
 !
 !  Subroutine :  d i f f _ t r a n s
 !
-!> @file
-!!
 !! Diffusive transport of water in the Martian atmosphere.
 !!
-!! @section Copyright
+!!##### Authors
 !!
-!! Copyright 2010-2013 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
+!! Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
 !!
-!! @section License
+!!##### License
 !!
 !! This file is part of MAIC-2.
 !!
@@ -21,17 +19,17 @@
 !!
 !! MAIC-2 is distributed in the hope that it will be useful,
 !! but WITHOUT ANY WARRANTY; without even the implied warranty of
-!! MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!! MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 !! GNU General Public License for more details.
 !!
 !! You should have received a copy of the GNU General Public License
-!! along with MAIC-2.  If not, see <http://www.gnu.org/licenses/>.
-!<
+!! along with MAIC-2. If not, see <https://www.gnu.org/licenses/>.
+!
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 !-------------------------------------------------------------------------------
 !> Diffusive transport of water in the Martian atmosphere.
-!<------------------------------------------------------------------------------
+!-------------------------------------------------------------------------------
 subroutine diff_trans(dtime)
 
 use maic2_types
