@@ -9,7 +9,7 @@ Resources
 GitHub repository:
 [https://github.com/ragger65/maic2/](https://github.com/ragger65/maic2/)
 
-SICOPOLIS community @ Zenodo:
+MAIC-2 community @ Zenodo:
 [https://zenodo.org/communities/maic2/](https://zenodo.org/communities/maic2/)
 
 License
