@@ -9,7 +9,7 @@
 !!
 !! @section Copyright
 !!
-!! Copyright 2010, 2011 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
+!! Copyright 2010-2013 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
 !!
 !! @section License
 !!
@@ -45,7 +45,6 @@ real(dp), intent(in) :: ecc, ave
 
 integer(i4b) :: iter, n
 real(dp) :: dtime_psi, factor, misfit
-real(dp), dimension(0:NTIME) :: ls_tab
 
 dtime_psi = MARS_YEAR / real(NTIME,dp)
 factor    = 2.0_dp*pi  / MARS_YEAR

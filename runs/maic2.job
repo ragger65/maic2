@@ -23,11 +23,11 @@
 
 #-------- Start directory for MAIC2 run --------
 
-RUN_DIR=/uchi/greve/Documents/maic2/runs
+RUN_DIR=/uchi/greve/models_tools/maic2/runs
 
 #-------- Source code directory ----
 
-SRC_DIR=/uchi/greve/Documents/maic2/src
+SRC_DIR=/uchi/greve/models_tools/maic2/src
 
 #-------- System commands used by this script --------
 
@@ -49,15 +49,20 @@ OUT_FILE='out_'$1'.dat'
 
 # Intel Fortran Compiler for Linux
 F90=ifort
-F90FLAGS='-fast -I'${RUN_DIR}' -o '${EXE_FILE}
+F90FLAGS='-O3 -no-prec-div'
+### F90FLAGS='-xHOST -O3 -no-prec-div'
+### # This is '-fast' without '-static' and '-ipo'
+### F90FLAGS='-fast'
 
 # GFortran Compiler
 # F90=gfortran
-# F90FLAGS='-O2 -I'${RUN_DIR}' -o '${EXE_FILE}
+# F90FLAGS='-O2'
 
 # G95 Compiler for Linux
 # F90=g95
-# F90FLAGS='-O2 -I'${RUN_DIR}' -o '${EXE_FILE}
+# F90FLAGS='-O2'
+
+F90FLAGS="${F90FLAGS} -I${RUN_DIR} -o ${EXE_FILE}"
 
 #-------- Compilation and linking of the source code --------
 

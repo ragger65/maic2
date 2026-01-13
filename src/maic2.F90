@@ -10,8 +10,8 @@
 !! which consists of a set of parameterisations for the surface temperature,
 !! the atmospheric water transport and the surface mass balance (condensation
 !! minus evaporation) of water ice. It is driven directly by orbital
-!! parameters. A detailed description of the model is given in the publication
-!! by Greve et al. (2010).
+!! parameters.
+!! A detailed description of the model is given by Greve et al. (2010, 2012).
 !!
 !! The model equations of MAIC-2 are discretised by a
 !! finite-difference/finite-volume scheme.
@@ -28,18 +28,24 @@
 !! @li Condensation rate of water ice.
 !! @li Atmospheric water content.
 !! @li Surface mass balance of water ice.
-!! @li Ice thickness.\n
+!! @li Ice thickness.
 !!	
-!! References:
+!! @section References
 !! @li Greve, R., B. Grieger and O. J. Stenzel. 2010.\n
 !!     MAIC-2, a latitudinal model for the Martian surface temperature,
 !!     atmospheric water transport and surface glaciation.\n
-!!     Planetary and Space Science 58 (6), 931-940.
+!!     Planetary and Space Science 58 (6), 931-940,
+!!     doi: 10.1016/j.pss.2010.03.002.
+!! @li Greve, R., B. Grieger and O. J. Stenzel. 2012.\n
+!!     Glaciation of Mars from 10 million years ago until 10 million years
+!!     into the future simulated with the model MAIC-2.\n
+!!     Presentation No. PPS03-06, JpGU Meeting, Makuhari, Chiba, Japan,
+!!     24 May 2012, doi: 10.5281/zenodo.3698542.
 !! @li MAIC-2 website: http://maic2.greveweb.net/
 !!
 !! @section Copyright
 !!
-!! Copyright 2010, 2011 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
+!! Copyright 2010-2013 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
 !!
 !! @section License
 !!
@@ -62,7 +68,7 @@
 !!
 !! @section Copyright
 !!
-!! Copyright 2010, 2011 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
+!! Copyright 2010-2013 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
 !!
 !! @section License
 !!
@@ -114,6 +120,7 @@ integer(i4b) :: ios
 integer(i4b) :: itercount_max
 integer(i4b) :: ndata_insol
 real(dp) :: time, time_init, time_end, dtime
+real(dp) :: ls, psi
 real(dp) :: dphi_equi
 real(dp) :: d_dummy
 character (len=100) :: runname
@@ -311,7 +318,7 @@ main_loop : do itercount=1, itercount_max
 
 !  ------ Boundary conditions
 
-   call boundary_maic2(time, dtime)
+   call boundary_maic2(time, ls, psi, dtime)
 
 !  ------ Topography
 
@@ -335,7 +342,7 @@ end do
 
 #endif
 
-if ( output_flag ) call output(time)
+if ( output_flag ) call output(time, ls)
 
 end do main_loop   ! End of main loop
 
@@ -364,6 +371,6 @@ end program maic2
 #include "subroutines/output.F90"
 
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-!                       End of maic2.F90
+!                          End of maic2.F90
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 !

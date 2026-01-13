@@ -8,7 +8,7 @@
 !!
 !! @section Copyright
 !!
-!! Copyright 2010, 2011 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
+!! Copyright 2010-2013 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
 !!
 !! @section License
 !!
@@ -43,41 +43,12 @@ real(dp), intent(in) :: dtime
 
 integer(i4b) :: l
 real(dp), dimension(0:LMAX) :: sle_a0, sle_a1, sle_a2, sle_b
-real(dp) :: transport(LMAX)
-real(dp) :: water_mean
+real(dp) :: ratio_water_np_sp
+real(dp) :: water_mean, water_mean_normalized
 
-#if SOLV_DIFF==0   /* Scheme by Bjoern */
+#if SOLV_DIFF==0
 
-!-------- scheme with intermediate step of computing transports --------
-
-do l=1, LMAX
-   transport(l) = dtime * DIFF_WATER_MAIC * 2_dp*acos(-1_dp)*cos_phi_cb1(l) &
-                        * ( water(l-1) - water(l) ) * dphi_inv(l)
-end do
-
-!-----------------------------------------------------------------------
-
-l=0
-   water_new(l) = water(l) + dtime * ( evap(l) - cond(l) ) &
-                           + ( 0_dp - transport(l+1) ) &
-                           / ( 2_dp * acos(-1_dp) * R**2 &
-                               * ( sin_phi_cb2(l) - sin_phi_cb1(l) ) &
-                             )
-
-do l=1, LMAX-1
-   water_new(l) = water(l) + dtime * ( evap(l) - cond(l) ) &
-                           + ( transport(l) - transport(l+1) ) &
-                           / ( 2_dp * acos(-1_dp) * R**2 &
-                               * ( sin_phi_cb2(l) - sin_phi_cb1(l) ) &
-                             )
-end do
-
-l=LMAX
-   water_new(l) = water(l) + dtime * ( evap(l) - cond(l) ) &
-                           + ( transport(l) - 0_dp ) &
-                           / ( 2_dp * acos(-1_dp) * R**2 &
-                               * ( sin_phi_cb2(l) - sin_phi_cb1(l) ) &
-                             )
+stop ' diff_trans: Option SOLV_DIFF==0 not available any more!'
 
 #elif SOLV_DIFF==1   /* Explicit scheme (Euler forward) */
 
@@ -137,7 +108,17 @@ sle_b(l)  = water(l) + dtime * (evap(l)-cond(l))
 
 call tri_sle(sle_a0, sle_a1, sle_a2, water_new, sle_b, LMAX)
 
-#elif SOLV_DIFF==3   /* Instantaneous mixing (infinite diffusivity) */
+#elif SOLV_DIFF==3   /* Instantaneous mixing (optional north-south gradient) */
+
+!-------- Ratio of the atmospheric water content at the poles
+!                         (north pole relative to south pole) --------
+
+#if defined(RATIO_WATER_NP_SP)
+ratio_water_np_sp = RATIO_WATER_NP_SP   ! prescribed north-south gradient
+#else
+ratio_water_np_sp = 1.0_dp   ! no north-south gradient,
+                             ! constant water content everywhere on the planet
+#endif
 
 !-------- Predictor step without transport --------
 
@@ -147,17 +128,37 @@ end do
 
 !-------- Mixing --------
 
+!  ------ Mean water content from predictor
+
 water_mean = 0.0_dp
 
 do l=0, LMAX
-   water_mean = water_mean + 0.5_dp*water_new(l)*(sin_phi_cb2(l)-sin_phi_cb1(l))
+   water_mean = water_mean &
+                + 0.5_dp*water_new(l)*(sin_phi_cb2(l)-sin_phi_cb1(l))
 end do
 
-water_new = water_mean
+!  ------ Water content from linear distribution
+!         with normalized value 1 at the south pole
+
+do l=0, LMAX
+   water_new(l) =   0.5_dp * (ratio_water_np_sp + 1.0_dp) &
+                  + pi_inv * (ratio_water_np_sp - 1.0_dp) * phi_node(l)
+end do
+
+!  ------ Correction such that the correct mean water content results
+
+water_mean_normalized = 0.0_dp
+
+do l=0, LMAX
+   water_mean_normalized = water_mean_normalized &
+                           + 0.5_dp*water_new(l)*(sin_phi_cb2(l)-sin_phi_cb1(l))
+end do
+
+water_new = water_new * (water_mean/water_mean_normalized)
 
 #else   /* Wrong value of parameter SOLV_DIFF */
 
-stop ' Wrong value of parameter SOLV_DIFF (must be 0, 1, 2 or 3)!'
+stop ' Wrong value of parameter SOLV_DIFF (must be 1, 2 or 3)!'
 
 #endif
 

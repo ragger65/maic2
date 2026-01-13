@@ -1,12 +1,12 @@
 !-------- Specification of current simulation --------
 
-#define RUNNAME 'run_t13'
+#define RUNNAME 'run_t40'
 !                       Name of simulation
 
 #define INPATH '/uchi/greve/Documents/maic2/maic2_in'
 !                       Directory for input (no '/' at the end!)
 
-#define OUTPATH '/data/greve/maic2_out'
+#define OUTPATH '/work/deepthought2/greve/maic2_out'
 !                       Directory for output (no '/' at the end!)
 
 !  ------------------
@@ -29,13 +29,13 @@
 #define MARS_DAY  (MARS_YEAR/672.0_dp)
 !                       Length of Martian day in seconds (PlaSim calendar)
 
-#define TIME_INIT0 -1.0e+07_dp
+#define TIME_INIT0 (-(MARS_YEAR/YEAR_SEC)*5.303e+06_dp)
 !                       Initial time of simulation (in a)
 
-#define TIME_END0  1.0e+07_dp
+#define TIME_END0  ((MARS_YEAR/YEAR_SEC)*5.303e+06_dp)
 !                       Final time of simulation (in a)
 
-#define DTIME0     0.02_dp
+#define DTIME0     ((MARS_YEAR/YEAR_SEC)/84.0_dp)
 !                       Time step (in a)
 
 #define NTIME 10000
@@ -60,7 +60,7 @@
 !                       Amplitude (maximum minus mean) of the daily cycle of the
 !                       surface temperature at the equator (in K)
 
-#define TEMP_SURF_AMP_EXP 3.0_dp
+#define TEMP_SURF_AMP_EXP 4.0_dp
 !                       Exponent of the latitude-dependent parameterisation
 !                       for the daily cycle of the surface temperature
 
@@ -72,7 +72,7 @@
 !                         2 : Present-day conditions with polar ice caps between
 !                             the poles and 80 deg lat, ground ice elsewhere
 
-#define THICK_INIT 19.0_dp
+#define THICK_INIT 5.25_dp
 !                       Initial ice thickness (m), for H_INIT=1
 
 #define WATER_INIT 0.02_dp
@@ -85,7 +85,7 @@
 
 !  ------------------
 
-#define EVAP_FACT 0.1_dp
+#define EVAP_FACT 0.05_dp
 !                       Evaporation factor
 
 #define GAMMA_REG 1.0e-01_dp
@@ -100,22 +100,24 @@
 !                         2 : Continuous, quadratic dependence on humidity
 
 #define TAU_COND 1.0e+00_dp
-!                5.0e+03_dp
 !                       Time-scale for condensation [in a], for COND=2
 
 !  ------------------
 
 #define SOLV_DIFF 3
 !                       Solution of the water-diffusion equation:
-!                         0 : Scheme by Bjoern with intermediate transport
-!                             computation [bug???]
 !                         1 : Explicit scheme (Euler forward)
 !                         2 : Implicit scheme (Euler backward)
-!                         3 : Instantaneous mixing (infinite diffusivity)
+!                         3 : Instantaneous mixing
+!                             with optional north-south gradient
 
 #define DIFF_WATER_MAIC 1.0e+02_dp
 !                       Diffusion coefficient of atmospheric water (in m2/s)
 !                       (irrelevant for SOLV_DIFF=3)
+
+#define RATIO_WATER_NP_SP 2.0_dp
+!                       Ratio of the atmospheric water content at the poles
+!                       (north pole relative to south pole; for SOLV_DIFF=3)
 
 !  ------------------
 
@@ -123,7 +125,7 @@
 !                         1 : Data output with prescribed time step
 !                         2 : Data output at arbitrarily specified times
 
-#define DTIME_OUT0 1.0e+04_dp
+#define DTIME_OUT0 ((MARS_YEAR/YEAR_SEC)*1000.0_dp)
 !                             Time step (in a) for data output
 !                             (only for OUTPUT==1)
 

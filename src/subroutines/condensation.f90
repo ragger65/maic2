@@ -8,7 +8,7 @@
 !!
 !! @section Copyright
 !!
-!! Copyright 2010, 2011 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
+!! Copyright 2010-2013 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
 !!
 !! @section License
 !!

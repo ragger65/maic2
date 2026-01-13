@@ -8,7 +8,7 @@
 !!
 !! @section Copyright
 !!
-!! Copyright 2010, 2011 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
+!! Copyright 2010-2013 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
 !!
 !! @section License
 !!
@@ -32,20 +32,21 @@
 !-------------------------------------------------------------------------------
 !> Data output.
 !<------------------------------------------------------------------------------
-subroutine output(time)
+subroutine output(time, ls)
 
 use maic2_types
 use maic2_variables
 
 implicit none
 
-real(dp), intent(in) :: time
+real(dp), intent(in) :: time, ls
 
-integer(i4b) :: l, n
+integer(i4b) :: l
 
 do l=0, LMAX
-   write(12, '(es14.6,f7.1,f10.3,5es12.3)') &
+   write(12, '(es14.6,f9.3,f7.1,f10.3,5es12.3)') &
         time/YEAR_SEC, &                  ! in a
+        ls*pi_180_inv, &                  ! in deg
         phi_node(l)*pi_180_inv, &         ! in deg
         temp_surf(l), &                   ! in K
         evap(l)*YEAR_SEC, &               ! in kg/(m^2*a)

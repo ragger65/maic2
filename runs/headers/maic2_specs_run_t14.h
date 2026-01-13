@@ -6,7 +6,7 @@
 #define INPATH '/uchi/greve/Documents/maic2/maic2_in'
 !                       Directory for input (no '/' at the end!)
 
-#define OUTPATH '/data/greve/maic2_out'
+#define OUTPATH '/work/deepthought2/greve/maic2_out'
 !                       Directory for output (no '/' at the end!)
 
 !  ------------------

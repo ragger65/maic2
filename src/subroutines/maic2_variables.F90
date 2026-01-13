@@ -8,7 +8,7 @@
 !!
 !! @section Copyright
 !!
-!! Copyright 2010, 2011 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
+!! Copyright 2010-2013 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
 !!
 !! @section License
 !!
@@ -121,6 +121,9 @@ real(dp), dimension(0:100000) :: ave_data
 !>                       = Ls of perihelion - 180 deg )
 real(dp), dimension(0:100000) :: cp_data
 
+!> ls_tab(n): Solar longitudes (orbital positions with respect to vernal equinox)
+!>            over a Martian year
+real(dp), dimension(0:NTIME) :: ls_tab
 !> psi_tab(n): True anomalies (orbital positions with respect to perihelion)
 !>             over a Martian year
 real(dp), dimension(0:NTIME) :: psi_tab

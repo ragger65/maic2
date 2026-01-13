@@ -9,7 +9,7 @@
 !!
 !! @section Copyright
 !!
-!! Copyright 2010, 2011 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
+!! Copyright 2010-2013 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
 !!
 !! @section License
 !!
@@ -34,7 +34,7 @@
 !> Determination of the surface temperature and of the net mass balance
 !! (accumulation-ablation rate) for the polar caps of Mars.
 !<------------------------------------------------------------------------------
-subroutine boundary_maic2(time, dtime)
+subroutine boundary_maic2(time, ls, psi, dtime)
 
 use maic2_types
 use maic2_variables
@@ -45,10 +45,11 @@ use condensation
 implicit none
 
 real(dp), intent(in) :: time, dtime
+real(dp), intent(inout) :: ls, psi
 
 integer(i4b) :: l, n, n1, n2
 real(dp) :: temp_co2_mean
-real(dp) :: ecc, obl, cp, ave, insol_ma_90NS, time_help, psi
+real(dp) :: ecc, obl, cp, ave, insol_ma_90NS, time_help
 real(dp) :: evap_coeff, tau_cond
 real(dp) :: dtime_inv
 type (ins), save :: temp
@@ -86,7 +87,8 @@ if ( first_iteration &
 
 end if
 
-!-------- Orbital position with respect to perihelion (true anomaly) --------
+!-------- Solar longitude (orbital position with respect to vernal equinox)
+!         and true anomaly (orbital position with respect to perihelion) --------
 
 time_help = real(NTIME,dp)*modulo(time/MARS_YEAR, 1.0_dp)
 
@@ -95,6 +97,9 @@ n2 = n1 + 1
 
 if ((n1 < 0).or.(n2 > NTIME)) &
    stop ' Subroutine boundary_maic2: n1 or n2 out of range!'
+
+ls = ls_tab(n1) + (time_help-real(n1,dp))*(ls_tab(n2)-ls_tab(n1))
+ls = modulo(ls, 2.0_dp*pi)
 
 psi = psi_tab(n1) + (time_help-real(n1,dp))*(psi_tab(n2)-psi_tab(n1))
 psi = modulo(psi, 2.0_dp*pi)
