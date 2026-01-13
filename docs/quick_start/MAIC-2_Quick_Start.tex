@@ -1,0 +1,294 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[DIV13,BCOR0mm]{typearea}
+\usepackage{setspace}
+
+\usepackage{natbib}
+\bibpunct[, ]{(}{)}{,}{a}{}{,}
+
+% \usepackage{wasysym}
+
+% Check if we are compiling under latex or pdflatex
+% \ifx\pdftexversion\undefined
+%  \usepackage[dvips]{graphicx}
+% \else
+   \usepackage[pdftex]{graphicx}
+% \fi
+
+% \graphicspath{{../Figs/}}
+
+\usepackage{hyperref}
+\usepackage{hyperxmp}
+\hypersetup{
+    pdfauthor={Ralf Greve, Bj\"orn Grieger, Oliver J. Stenzel},
+    pdftitle={MAIC-2 - Quick Start Manual},
+    pdfsubject={Martian climate model},
+    pdfkeywords={Mars, Planetary ice, Obliquity, %
+                 Ice cap, Polar layered deposits, Ice age},
+    pdfcopyright={GNU General Public License version 3 or later},
+    pdflicenseurl={http://www.gnu.org/licenses/}}
+
+% Positioning of figures
+% (values chosen such that figure is inserted at the place of the call
+% if possible):
+\setcounter{topnumber}{10}
+\setcounter{bottomnumber}{10}
+\setcounter{totalnumber}{20}
+\renewcommand{\topfraction}{0.99}
+\renewcommand{\textfraction}{0.01}
+\renewcommand{\bottomfraction}{0.99}
+
+\onehalfspacing
+
+\input{newcommands.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{center}
+
+\rule{0mm}{15mm}
+
+\begin{huge}
+  \textbf{MAIC-2\\[-0.5ex]
+          -- Quick Start Manual --}\\[-0.5ex]
+\end{huge}
+
+\rule{0mm}{25mm}
+
+\begin{large}
+  \textsc{Ralf Greve}
+\end{large}
+
+\vspace*{2mm}
+
+\begin{normalsize}
+  Institute of Low Temperature Science, Hokkaido University,\\[-0.25ex]
+  Kita-19, Nishi-8, Kita-ku, Sapporo 060-0819, Japan\\[1ex]
+\end{normalsize}
+
+\vspace*{6mm}
+
+\begin{large}
+  \textsc{Bj\"orn Grieger}
+\end{large}
+
+\vspace*{2mm}
+
+\begin{normalsize}
+  European Space Astronomy Centre (ESAC),\\[-0.25ex]
+  Camino Bajo del Castillo s/n,\\[-0.25ex]
+  28692 Villanueva de la Ca\~nada, Madrid, Spain\\[1ex]
+\end{normalsize}
+
+\vspace*{6mm}
+
+\begin{large}
+  \textsc{Oliver J.~Stenzel}
+\end{large}
+
+\vspace*{2mm}
+
+\begin{normalsize}
+  Max Planck Institute for Solar System Research,\\[-0.25ex]
+  Justus-von-Liebig-Weg 3, 37077 G\"ottingen, Germany\\[1ex]
+\end{normalsize}
+
+\vfill
+
+\begin{normalsize}\today\end{normalsize}
+% \begin{normalsize}February 1, 2013\\
+%                   (updated March 8, 2020)\end{normalsize}
+
+\end{center}
+
+\rule{0mm}{20mm}
+
+\clearpage
+
+\rule{0mm}{0mm}
+
+\vfill
+
+\begin{center}\begin{minipage}{0.85\textwidth}
+
+\begin{small}
+
+\noindent{}Copyright 2010-2026
+           Ralf Greve, Bj\"orn Grieger, Oliver J.~Stenzel
+
+\vspace*{1.5ex}
+
+\noindent{}This file is part of MAIC-2.
+
+\vspace*{1.5ex}
+
+\noindent{}MAIC-2 is free software. It can be redistributed and/or modified under the terms of the GNU General Public License (http://www.gnu.org/licenses/) as published by the Free Software Foundation, either version~3 of the License, or (at the user's option) any later version.
+
+\vspace*{1.5ex}
+
+\noindent{}MAIC-2 is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+\end{small}
+
+\end{minipage}\end{center}
+
+\vfill
+
+\rule{0mm}{0mm}
+
+\clearpage
+
+\section{Requirements}
+
+\begin{itemize}
+
+\item UNIX/LINUX system.
+
+\item Fortran 90/95 compiler.
+
+\end{itemize}
+
+\section{Installation}
+
+\begin{enumerate}
+
+\item Clone the latest revision from the GitHub repository:
+
+\hspace*{10mm}\verb+git clone https://github.com/ragger65/maic2.git+
+
+\item You should then have a new folder ``maic2'' that contains the entire program package.
+
+\end{enumerate}
+
+\section{Files and directories in ``maic2''}
+
+\begin{itemize}
+\item \textbf{Main directory}:
+
+Shell script (bash) maic2.sh for running a single simulation under UNIX/LINUX.
+
+Shell script (bash) multi\_maic2.sh for running multiple simulations by repeated calls of maic2.sh.
+
+Subdirectory \textbf{headers/templates}: specification files maic2\_specs\_\emph{run\_name}.h
+\\
+\hspace*{15.9em}(\emph{run\_name}: name of run).
+
+\begin{center}\begin{tabular}{ll} \hline
+  Name of Run & Description \\ \hline
+  run\_c01a & Simulation \#2 by \citet{greve_etal_2010},\\[-0.35ex]
+            & only over 1 Martian year with more detailed output \\
+  run\_c01  & Simulation \#2 by \citet{greve_etal_2010} \\
+  run\_c02  & Simulation \#1 by \citet{greve_etal_2010} \\
+  run\_c03  & Simulation \#3 by \citet{greve_etal_2010} \\
+  run\_c04  & Simulation \#4 by \citet{greve_etal_2010} \\ \hline
+  run\_t06  & Simulation \#6 by \citet{greve_etal_2010} \\
+  run\_t07  & Simulation \#7 by \citet{greve_etal_2010} \\
+  run\_t08  & Simulation \#8 by \citet{greve_etal_2010} \\
+  run\_t12  & Simulation \#5 by \citet{greve_etal_2010} \\
+  run\_t14  & Simulation \#6 by \citet{greve_etal_2010},\\[-0.35ex]
+            & but from 20~Ma ago until 10~Ma into the future \\ \hline
+  run\_t39  & Simulation by \citet{greve_etal_2012} (pp.\,14-15) \\
+  run\_t40  & Simulation by \citet{greve_etal_2012} (pp.\,14-15) \\ \hline
+\end{tabular}\end{center}
+
+Copy these header files into the subdirectory \textbf{headers} by executing
+
+\hspace*{10mm}\verb+cp headers/templates/maic2_specs_*.h headers/+
+
+\item \textbf{src}:
+
+Main program file maic2.F90.
+
+Subdirectory \textbf{subroutines}: subroutines for MAIC-2.
+
+\item \textbf{maic2\_in}:
+
+Input data files (orbital forcing) for MAIC-2.
+
+\item \textbf{maic2\_out}:
+
+Default directory for output files produced by MAIC-2; initially empty.
+
+\item \textbf{docs}:
+
+Documentation for MAIC-2 (this Quick Start Manual, FORD developer manual). The latter can be built by executing \verb+ ford ford.md + in the main directory.
+
+\end{itemize}
+
+\section{How to run a simulation}
+
+\begin{enumerate}
+
+\item In the script maic2.sh, search for ``greve'', and replace the path names for RUN\_DIR and SRC\_DIR with your own ones.
+
+Also, search for ``Compiler'', and replace the variables F90 and F90FLAGS according to the syntax of your own Fortran compiler (F90FLAGS should do).
+
+\item In the specification files (subdirectory headers/), search for ``greve'', and replace the path names for INPATH and OUTPATH with your own ones.
+
+\item The rest is quite simple:
+
+\begin{itemize}
+
+\item In order to run simulation run\_t06, use the script maic2.sh. The command is
+\\
+\hspace*{10mm}\verb+(./maic2.sh run_t06) >tmp/out_job.dat 2>&1 &+
+\\
+(bash required). Accordingly for the other simulations.
+
+\item Alternatively, if you prefer to run all simulations consecutively, you may use the script multi\_maic2.sh:
+\\
+\hspace*{10mm}\verb+(./multi_maic2.sh) >tmp/out_mjob.dat 2>&1 &+
+
+\end{itemize}
+
+\end{enumerate}
+
+\noindent{}The computing times for the simulations, run with the Intel Fortran Compiler for Linux 11.1 (optimization option --fast) on an Intel Xeon X5570 (2.93~GHz) PC under openSUSE 11.0 (64~bit), are as follows:
+
+\begin{center}\begin{tabular}{lr@{.}lcclr@{.}lcclr@{.}l} \hline
+  Run & \multicolumn{2}{c}{Time} &&&
+  Run & \multicolumn{2}{c}{Time} &&&
+  Run & \multicolumn{2}{c}{Time} \\ \hline
+  run\_c01a\qquad &  0&$1\,\mathrm{sec}$ &&&
+  run\_t06\qquad  &  7&$0\,\mathrm{hrs}$ &&&
+  run\_t39\qquad  &  7&$0\,\mathrm{hrs}$ \\
+  run\_c01        &  7&$0\,\mathrm{hrs}$ &&&
+  run\_t07        &  7&$0\,\mathrm{hrs}$ &&&
+  run\_t40        & 14&$0\,\mathrm{hrs}$ \\
+  run\_c02        &  7&$0\,\mathrm{hrs}$ &&&
+  run\_t08        &  7&$0\,\mathrm{hrs}$ \\
+  run\_c03        &  7&$0\,\mathrm{hrs}$ &&&
+  run\_t12        &  7&$0\,\mathrm{hrs}$ \\
+  run\_c04        &  7&$0\,\mathrm{hrs}$ &&&
+  run\_t14        & 21&$0\,\mathrm{hrs}$ \\ \hline
+\end{tabular}\end{center}
+
+\section{Output files}
+\label{sect_output}
+
+Output files of simulations are written to a directory specified by the user (OUTPATH in specification files, see above). Each simulation produces an output file \textbf{run\_name.out} in ASCII format that contains the following data:
+
+\begin{tabbing}
+  \hspace*{3em} \= \hspace*{6em} \= \kill
+  \> Column 1: \>Time $t$ [a] \\
+  \> Column 2: \>Solar longitude $L_\mathrm{s}$ [deg] \\
+  \> Column 3: \>Latitude $\varphi$ [deg] \\
+  \> Column 4: \>Surface temperature $T(\varphi,t)$ [K] \\
+  \> Column 5: \>Evaporation rate $E(\varphi,t)$ $[\mathrm{kg\,m^{-2}\,a^{-1}}]$ \\
+  \> Column 6: \>Condensation rate $C(\varphi,t)$ $[\mathrm{kg\,m^{-2}\,a^{-1}}]$ \\
+  \> Column 7: \>Water content $\omega(\varphi,t)$ $[\mathrm{kg\,m^{-2}}]$ \\
+  \> Column 8: \>Net mass balance $a_\mathrm{net}(\varphi,t)$
+                  $[\mathrm{mm\,a^{-1}}\mbox{ ice equivalent}]$ \\
+  \> Column 9: \>Ice thickness $H(\varphi,t)$ [m] \\
+\end{tabbing}
+
+% \clearpage
+
+% \section*{References}
+
+\bibliographystyle{references_maic2}
+\bibliography{references_maic2}
+
+\end{document}
