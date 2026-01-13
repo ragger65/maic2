@@ -1,14 +1,17 @@
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
+!
 !  Subroutine :  b o u n d a r y _ m a i c 2
-
-!  Purpose    :  Mars Atmosphere-Ice Coupler MAIC-2:
-!                -----------------------------------
-!                Determination of the surface temperature and of the net
-!                mass balance (accumulation-ablation rate) for the polar caps
-!                of Mars.
-
-!! Copyright 2010 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
+!
+!> @file
+!!
+!! Determination of the surface temperature and of the net mass balance
+!! (accumulation-ablation rate) for the polar caps of Mars.
+!!
+!! @section Copyright
+!!
+!! Copyright 2010, 2011 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
+!!
+!! @section License
 !!
 !! This file is part of MAIC-2.
 !!
@@ -19,14 +22,18 @@
 !!
 !! MAIC-2 is distributed in the hope that it will be useful,
 !! but WITHOUT ANY WARRANTY; without even the implied warranty of
-!! MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+!! MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 !! GNU General Public License for more details.
 !!
 !! You should have received a copy of the GNU General Public License
 !! along with MAIC-2.  If not, see <http://www.gnu.org/licenses/>.
-
+!<
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+!-------------------------------------------------------------------------------
+!> Determination of the surface temperature and of the net mass balance
+!! (accumulation-ablation rate) for the polar caps of Mars.
+!<------------------------------------------------------------------------------
 subroutine boundary_maic2(time, dtime)
 
 use maic2_types
@@ -179,3 +186,4 @@ do l=0, LMAX
 end do
 
 end subroutine boundary_maic2
+!

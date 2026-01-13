@@ -1,11 +1,16 @@
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-!  Module     :  c o n d e n s a t i o n
-
-!  Purpose    :  Computation of condensation rate for the Mars Atmosphere-Ice
-!                Coupler MAIC-2.
-
-!! Copyright 2010 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
+!
+!  Module :  c o n d e n s a t i o n
+!
+!> @file
+!!
+!! Computation of the condensation rate.
+!!
+!! @section Copyright
+!!
+!! Copyright 2010, 2011 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
+!!
+!! @section License
 !!
 !! This file is part of MAIC-2.
 !!
@@ -16,14 +21,17 @@
 !!
 !! MAIC-2 is distributed in the hope that it will be useful,
 !! but WITHOUT ANY WARRANTY; without even the implied warranty of
-!! MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+!! MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 !! GNU General Public License for more details.
 !!
 !! You should have received a copy of the GNU General Public License
 !! along with MAIC-2.  If not, see <http://www.gnu.org/licenses/>.
-
+!<
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+!-------------------------------------------------------------------------------
+!> Computation of the condensation rate.
+!<------------------------------------------------------------------------------
 module condensation
 
    use maic2_types
@@ -33,9 +41,10 @@ module condensation
    real(dp), private :: tau
 
 contains
-   
-!-------- Setting of parameters --------
 
+!-------------------------------------------------------------------------------
+!> Setting of parameters.
+!<------------------------------------------------------------------------------
    subroutine setcondpar(gravity, timescale)
 
    implicit none
@@ -56,9 +65,10 @@ contains
 
    end subroutine setcondpar
    
-!-------- Computation of condensation (removal of water
-!         exceeding the saturation pressure at the surface) --------
-
+!-------------------------------------------------------------------------------
+!> Computation of condensation
+!! (removal of water exceeding the saturation pressure at the surface).
+!<------------------------------------------------------------------------------
    subroutine getcond_1(temp, water, cond, dtime)
 
    implicit none
@@ -86,9 +96,9 @@ contains
 
    end subroutine getcond_1
    
-!-------- Computation of condensation
-!         (continuous, quadratic dependence on humidity) --------
-
+!-------------------------------------------------------------------------------
+!> Computation of condensation (continuous, quadratic dependence on humidity).
+!<------------------------------------------------------------------------------
    subroutine getcond_2(temp, water, cond)
 
    implicit none
@@ -107,3 +117,4 @@ contains
    end subroutine getcond_2
 
 end module condensation
+!

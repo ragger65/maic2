@@ -1,11 +1,17 @@
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
+!
 !  Subroutine :  g e t _ p s i _ t a b
-
-!  Purpose    :  Computation of the table of true anomalies (orbital positions
-!                with respect to perihelion) over a Martian year.
-
-!! Copyright 2010 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
+!
+!> @file
+!!
+!! Computation of the table of true anomalies (orbital positions
+!! with respect to perihelion) over a Martian year.
+!!
+!! @section Copyright
+!!
+!! Copyright 2010, 2011 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
+!!
+!! @section License
 !!
 !! This file is part of MAIC-2.
 !!
@@ -16,14 +22,18 @@
 !!
 !! MAIC-2 is distributed in the hope that it will be useful,
 !! but WITHOUT ANY WARRANTY; without even the implied warranty of
-!! MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+!! MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 !! GNU General Public License for more details.
 !!
 !! You should have received a copy of the GNU General Public License
 !! along with MAIC-2.  If not, see <http://www.gnu.org/licenses/>.
-
+!<
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+!-------------------------------------------------------------------------------
+!> Computation of the table of true anomalies (orbital positions
+!! with respect to perihelion) over a Martian year.
+!<------------------------------------------------------------------------------
 subroutine get_psi_tab(ecc, ave)
 
 use maic2_types

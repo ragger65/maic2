@@ -1,19 +1,16 @@
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
+!
 !  Subroutine :  t r i _ s l e
-
-!  Purpose    :  Solution of a system of linear equations Ax=b with
-!                tridiagonal matrix A.
-
-!  Parameters :  Matrix a
-!                (a0(j): element A_(j,j-1), a1(j): element A_(j,j),
-!                 a2(j): element A_(j,j+1)),
-!                solution vector x,
-!                inhomogeneity vector b,
-!                size of matrix n_rows
-!                (indices run from 0 (!!!) to n_rows).
-
-!! Copyright 2010 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
+!
+!> @file
+!!
+!! Solution of a system of linear equations Ax=b with tridiagonal matrix A.
+!!
+!! @section Copyright
+!!
+!! Copyright 2010, 2011 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
+!!
+!! @section License
 !!
 !! This file is part of MAIC-2.
 !!
@@ -24,14 +21,23 @@
 !!
 !! MAIC-2 is distributed in the hope that it will be useful,
 !! but WITHOUT ANY WARRANTY; without even the implied warranty of
-!! MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+!! MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 !! GNU General Public License for more details.
 !!
 !! You should have received a copy of the GNU General Public License
 !! along with MAIC-2.  If not, see <http://www.gnu.org/licenses/>.
-
+!<
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+!-------------------------------------------------------------------------------
+!> Solution of a system of linear equations Ax=b with tridiagonal matrix A.
+!! @param[in]  a0       a0(j) is element A_(j,j-1) of matrix A
+!! @param[in]  a1       a1(j) is element A_(j,j)   of matrix A
+!! @param[in]  a2       a2(j) is element A_(j,j+1) of matrix A
+!! @param[in]  b        inhomogeneity vector
+!! @param[in]  n_rows   size of matrix A (indices run from 0 (!!!) to n_rows)
+!! @param[out] x        solution vector.
+!<------------------------------------------------------------------------------
 subroutine tri_sle(a0, a1, a2, x, b, n_rows)
 
 use maic2_types
@@ -45,8 +51,7 @@ real(dp), dimension(0:*), intent(out)   :: x
 integer(i4b) :: n
 real(dp), allocatable, dimension(:) :: help_x
 
-!--------  Generation of an upper triangular matrix
-!                          ('obere Dreiecksmatrix') --------
+!--------  Generation of an upper triangular matrix --------
 
 do n=1, n_rows
    a1(n)   = a1(n) - a0(n)/a1(n-1)*a2(n-1)

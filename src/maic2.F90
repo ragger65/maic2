@@ -1,12 +1,70 @@
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-!  Program   :  m a i c 2
-
-!  Purpose   :  Mars Atmosphere-Ice Coupler MAIC-2;
-!               application to a static, zonally averaged
-!               (only latitude-dependent) ice cap.
-
-!! Copyright 2010 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
+!
+!  Program :  m a i c 2
+!
+!> @mainpage
+!!
+!! @section Description
+!!
+!! The Mars Atmosphere-Ice Coupler MAIC-2 is a simple, latitudinal model,
+!! which consists of a set of parameterisations for the surface temperature,
+!! the atmospheric water transport and the surface mass balance (condensation
+!! minus evaporation) of water ice. It is driven directly by orbital
+!! parameters. A detailed description of the model is given in the publication
+!! by Greve et al. (2010).
+!!
+!! The model equations of MAIC-2 are discretised by a
+!! finite-difference/finite-volume scheme.
+!! Coding is done in the programming language Fortran 90.
+!!
+!! Required model forcing (as functions of time):
+!! @li Obliquity (axial tilt).
+!! @li Orbital eccentricity.
+!! @li Solar longitude (Ls) of perihelion.
+!!	
+!! Output (as functions of latitude and time):
+!! @li Surface temperature.
+!! @li Evaporation rate of water ice.
+!! @li Condensation rate of water ice.
+!! @li Atmospheric water content.
+!! @li Surface mass balance of water ice.
+!! @li Ice thickness.\n
+!!	
+!! References:
+!! @li Greve, R., B. Grieger and O. J. Stenzel. 2010.\n
+!!     MAIC-2, a latitudinal model for the Martian surface temperature,
+!!     atmospheric water transport and surface glaciation.\n
+!!     Planetary and Space Science 58 (6), 931-940.
+!! @li MAIC-2 website: http://maic2.greveweb.net/
+!!
+!! @section Copyright
+!!
+!! Copyright 2010, 2011 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
+!!
+!! @section License
+!!
+!! MAIC-2 is free software: you can redistribute it and/or modify
+!! it under the terms of the GNU General Public License as published by
+!! the Free Software Foundation, either version 3 of the License, or
+!! (at your option) any later version.
+!!
+!! MAIC-2 is distributed in the hope that it will be useful,
+!! but WITHOUT ANY WARRANTY; without even the implied warranty of
+!! MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!! GNU General Public License for more details.
+!!
+!! You should have received a copy of the GNU General Public License
+!! along with MAIC-2.  If not, see <http://www.gnu.org/licenses/>.
+!!
+!! @file
+!!
+!! Main program file of MAIC-2.
+!!
+!! @section Copyright
+!!
+!! Copyright 2010, 2011 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
+!!
+!! @section License
 !!
 !! This file is part of MAIC-2.
 !!
@@ -17,12 +75,12 @@
 !!
 !! MAIC-2 is distributed in the hope that it will be useful,
 !! but WITHOUT ANY WARRANTY; without even the implied warranty of
-!! MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+!! MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 !! GNU General Public License for more details.
 !!
 !! You should have received a copy of the GNU General Public License
 !! along with MAIC-2.  If not, see <http://www.gnu.org/licenses/>.
-
+!<
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 !-------- Inclusion of specification header --------
@@ -40,8 +98,9 @@
 #include "subroutines/evaporation.f90"
 #include "subroutines/condensation.f90"
 
-!-------- Begin of main program --------
-
+!-------------------------------------------------------------------------------
+!> Main program of MAIC-2.
+!<------------------------------------------------------------------------------
 program maic2
 
 !-------- Modules, variables --------
@@ -307,3 +366,4 @@ end program maic2
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 !                       End of maic2.F90
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+!

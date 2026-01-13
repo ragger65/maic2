@@ -1,10 +1,16 @@
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
+!
 !  Function :  p _ s a t
-
-!  Purpose  :  Computation of the water-vapour saturation pressure.
-
-!! Copyright 2010 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
+!
+!> @file
+!!
+!! Computation of the water-vapour saturation pressure.
+!!
+!! @section Copyright
+!!
+!! Copyright 2010, 2011 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
+!!
+!! @section License
 !!
 !! This file is part of MAIC-2.
 !!
@@ -15,14 +21,17 @@
 !!
 !! MAIC-2 is distributed in the hope that it will be useful,
 !! but WITHOUT ANY WARRANTY; without even the implied warranty of
-!! MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+!! MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 !! GNU General Public License for more details.
 !!
 !! You should have received a copy of the GNU General Public License
 !! along with MAIC-2.  If not, see <http://www.gnu.org/licenses/>.
-
+!<
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+!-------------------------------------------------------------------------------
+!> Computation of the water-vapour saturation pressure.
+!<------------------------------------------------------------------------------
 elemental function p_sat(temp_surf) result(psat)
 
 use maic2_types
@@ -43,3 +52,4 @@ real(dp) :: psat
                                      (temp_surf-  7.65_dp) )
 
 end function p_sat
+!
