@@ -13,6 +13,8 @@ my_*
 *DS_Store*
 *.nfs*
 
+/headers/*.h
+
 /src/*.h
 /src/*.py
 /src/*.sh

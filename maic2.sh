@@ -3,7 +3,7 @@
 
 #######################################################################
 #
-#  M A I C 2 . J O B
+#  M A I C 2 . S H
 #
 #  bash script for
 #  compilation, linking and execution of the program MAIC2.
@@ -13,17 +13,17 @@
 #  Author: Ralf Greve
 #
 #    Execute script from a bash with
-#       '(./maic2.job runname) >out_job.dat 2>&1 &'
+#       '(./maic2.sh runname) >tmp/out_job.dat 2>&1 &'
 #    where runname is the name of the simulation.
 #
-#    Specification header must be called 'maic2_specs_rname.h'
+#    Specification header must be called 'maic2_specs_runname.h'
 #    and must be placed in subdirectory 'headers'!
 #
 #######################################################################
 
 #-------- Start directory for MAIC2 run --------
 
-RUN_DIR=/uchi/greve/models_tools/maic2/runs
+RUN_DIR=/uchi/greve/models_tools/maic2
 
 #-------- Source code directory ----
 
@@ -88,4 +88,4 @@ $RM -f ${HEADER_FILE_MAIC2}
 
 $RM -f ${EXE_FILE}
 
-#-------- End of maic2.job --------
+#-------- End of maic2.sh --------
