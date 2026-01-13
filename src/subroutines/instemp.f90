@@ -58,6 +58,10 @@ contains
       logical      :: co2layer(-90:90)
       integer(i4b) :: iphi, ipsi, year
       integer(i4b), parameter :: yearmax = 2
+      real(dp), parameter :: pi = 3.141592653589793_dp, pi_180 = pi/180.0_dp
+      real(dp), parameter :: SB = 5.67051e-8_dp
+                             ! Wikipedia gives 5.670400E-8 +- 0.000040E-8
+      real(dp) :: tptd, seps, sdelta, cdelta
       real(dp) :: albact, albact_co2, delta, du, e, eps, f, &
                   lambda, phi, psi, psi0, r
       real(dp) :: tau0, teq, ufac, usum, w, wg
@@ -114,12 +118,14 @@ contains
 
       j0 = j0 / a**2
       f = a * e
-      psi0 = psi0 * acos(-1._dp)/180._dp
-      eps = eps * acos(-1._dp)/180._dp
+      psi0 = psi0 * pi_180
+      eps = eps * pi_180
+      
+      seps = sin(eps)
 
       usum = 0.0_dp
       do ipsi = 0, 360, 1
-         psi = ipsi * acos(-1._dp)/180._dp
+         psi = ipsi * pi_180
          r = ( a**2 - f**2 ) / ( a + f*cos(psi) )
          du = r**2
          if (ipsi<360) usum = usum + du
@@ -132,24 +138,27 @@ contains
       do year = 1, yearmax
          usum = 0.0_dp
          do ipsi = 0, 360, 1
-            psi = ipsi * acos(-1._dp)/180._dp
+            psi = ipsi * pi_180
             r = ( a**2 - f**2 ) / ( a + f*cos(psi) )
             du = ufac * r**2
             if (ipsi<360) usum = usum + du
             lambda = psi - psi0
-            delta = asin( sin(eps) * sin(lambda) )
+            delta  = asin( seps * sin(lambda) )
+            sdelta = sin(delta)
+            cdelta = cos(delta)
             do iphi = -89, 89, 1
-               phi = iphi * acos(-1._dp)/180._dp
-               if ( -tan(phi) * tan(delta) .le. -1.0_dp ) then
-                  tau0 = acos(-1._dp)
-               else if ( -tan(phi) * tan(delta) .ge. 1.0_dp ) then
+               phi = iphi * pi_180
+               tptd = -tan(phi) * tan(delta)
+               if ( tptd .le. -1.0_dp ) then
+                  tau0 = pi
+               else if ( tptd .ge. 1.0_dp ) then
                   tau0 = 0.0_dp
                else
-                  tau0 = acos( -tan(phi) * tan(delta) )
+                  tau0 = acos( tptd )
                end if
-               w = ( tau0*sin(phi)*sin(delta) + &
-                     cos(phi)*cos(delta)*sin(tau0) ) &
-                   * j0 * a**2 / ( acos(-1._dp) * r**2 )
+               w = ( tau0*sin(phi)*sdelta + &
+                     cos(phi)*cdelta*sin(tau0) ) &
+                   * j0 * a**2 / ( pi * r**2 )
                wg = 0.0_dp ! 0.045 * j0
                if ( t(iphi) < -999._dp ) then
                   albact     = 0.95_dp
@@ -158,15 +167,15 @@ contains
                   albact     = alb
                   albact_co2 = alb_co2
                end if
-               teq = ( ( wg + (1._dp-albact) * w ) / 5.67051e-8_dp )**.25_dp
+               teq = ( ( wg + (1._dp-albact) * w ) / SB )**.25_dp
                if ( teq < tco2 ) then
                   co2layer(iphi) = .true.
-                  co2(iphi) = co2(iphi) + 5.67051e-8_dp * tco2**4 * du &
+                  co2(iphi) = co2(iphi) + SB * tco2**4 * du &
                               - (1._dp-albact_co2) * w * du
                   t(iphi) = tco2
                else
                   if ( co2layer(iphi) ) then
-                     co2(iphi) = co2(iphi) + 5.67051e-8_dp * tco2**4 * du &
+                     co2(iphi) = co2(iphi) + SB * tco2**4 * du &
                                  - (1._dp-albact_co2) * w * du
                      if ( co2(iphi) .le. 0.0_dp ) then
                         co2(iphi) = 0.0_dp
@@ -197,8 +206,6 @@ contains
       o%tam( 90)  = o%tam( 89)  + ( o%tam( 89)  - o%tam( 88) )  / 2._dp
       o%tmax(-90) = o%tmax(-89) + ( o%tmax(-89) - o%tmax(-88) ) / 2._dp
       o%tmax( 90) = o%tmax( 89) + ( o%tmax( 89) - o%tmax( 88) ) / 2._dp
-
-!      print*, ecc, ave, obl, sa, op, sum( o%t )
 
    end subroutine
    

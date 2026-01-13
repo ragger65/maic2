@@ -110,7 +110,8 @@ contains
                delta_rho_rho_1, delta_rho_rho_2, delta_rho_rho, &
                inv_length, inv_gamma_reg, &
                temp_hr, evap_hr
-
+   real(dp) :: sat_pressure
+   real(dp), dimension(8) :: cos_factor
    real(dp), parameter :: pi = 3.141592653589793_dp
 
    n = size(temp)
@@ -119,6 +120,7 @@ contains
    inv_gamma_reg = 1.0_dp/gamma_reg
    one_third     = 1.0_dp/3.0_dp
    one_eighth    = 1.0_dp/8.0_dp
+   cos_factor    = (/(cos(2.0_dp*pi*one_eighth*real(hr,dp)),hr=1,8)/)
 
    do i = 1, n
 
@@ -126,13 +128,13 @@ contains
 
       do hr=1, 8   ! counter for one Martian day (sampled in 3-hour intervals)
 
-         temp_hr       = temp(i) - temp_amp(i) &
-                                   *cos(2.0_dp*pi*one_eighth*real(hr,dp))
-         delta_eta     = mol_w*p_sat(temp_hr)/(mol_c*p(i))
+         temp_hr       = temp(i) - temp_amp(i)*cos_factor(hr)
+         sat_pressure  = p_sat(temp_hr)
+         delta_eta     = mol_w*sat_pressure/(mol_c*p(i))
          rho           = mol_c*p(i)/(R_univ*temp_hr)
 
-         delta_rho_rho_1 = (mol_c-mol_w)*p_sat(temp_hr)
-         delta_rho_rho_2 = mol_c*p(i)-(mol_c-mol_w)*p_sat(temp_hr)
+         delta_rho_rho_1 = (mol_c-mol_w)*sat_pressure
+         delta_rho_rho_2 = mol_c*p(i)-(mol_c-mol_w)*sat_pressure
 
          if (delta_rho_rho_1 <= delta_rho_rho_2) then
                 ! physically reasonable case

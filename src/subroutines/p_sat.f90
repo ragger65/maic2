@@ -23,7 +23,7 @@
 
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-function p_sat(temp_surf) result(psat)
+elemental function p_sat(temp_surf) result(psat)
 
 use maic2_types
 
