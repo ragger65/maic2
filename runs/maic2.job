@@ -1,0 +1,80 @@
+#!/bin/tcsh
+# (Selection of shell)
+
+#######################################################################
+#
+#  M A I C 2 . J O B
+#
+#  tcsh script for
+#  compilation, linking and execution of the program MAIC2.
+#
+#  System: PC, openSUSE Linux
+#
+#  Author: Ralf Greve
+#
+#    Execute script from a tcsh with
+#       '(./maic2.job rname) >&! out_job.dat &'
+#    where rname is the name of the simulation.
+#
+#    Specification header must be called 'maic2_specs_rname.h'
+#    and must be placed in subdirectory 'headers'!
+#
+#######################################################################
+
+#-------- Start directory for MAIC2 run --------
+
+set RUN_DIR = /uchi/greve/Documents/maic2/runs
+
+#-------- Source code directory ----
+
+set SRC_DIR = /uchi/greve/Documents/maic2/src
+
+#-------- Name of header, executable and output files --------
+
+set HEADER_FILE       = 'headers/maic2_specs_'$1'.h'
+#   Header file of current simulation
+set HEADER_FILE_MAIC2 = 'maic2_specs.h'
+#   Name of header file in MAIC2
+
+set EXE_FILE = 'maic2_'$1'.x'
+set OUT_FILE = 'out_'$1'.dat'
+
+#-------- Compiler --------
+
+# Intel Fortran Compiler for Linux
+set F90      = ifort
+set F90FLAGS = '-fast -I'${RUN_DIR}' -o '${EXE_FILE}
+
+# G95 Compiler for Linux
+# set F90      = g95
+# set F90FLAGS = '-O2 -I'${RUN_DIR}' -o '${EXE_FILE}
+
+# GFortran Compiler
+# set F90      = gfortran
+# set F90FLAGS = '-O2 -I'${RUN_DIR}' -o '${EXE_FILE}
+
+#-------- Compilation and linking of the source code --------
+
+unalias rm
+alias   rmf 'rm -f'
+alias   rm  'rm -i'
+
+cd ${RUN_DIR}
+rmf ${HEADER_FILE_MAIC2}
+cp ${HEADER_FILE} ${HEADER_FILE_MAIC2}
+
+rmf ${EXE_FILE}
+
+${F90} ${F90FLAGS} ${SRC_DIR}/maic2.F90
+
+rmf ${HEADER_FILE_MAIC2}
+
+#-------- Execution of the program --------
+
+(time /usr/bin/nice -n 19 ./${EXE_FILE}) >&! ${OUT_FILE}
+
+rmf ${EXE_FILE}
+
+unalias rmf
+
+#-------- End of maic2.job --------

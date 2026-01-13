@@ -1,0 +1,40 @@
+#!/bin/tcsh
+# (Selection of shell)
+
+# Simulation #2 of Greve et al. (2010),
+# only over 1 Martian year with more detailed output:
+(./maic2.job run_c01a ) >&! out_mjob_01.dat
+
+# Simulation #2 of Greve et al. (2010):
+(./maic2.job run_c01  ) >&! out_mjob_02.dat
+
+# Simulation #1 of Greve et al. (2010):
+(./maic2.job run_c02  ) >&! out_mjob_03.dat
+
+# Simulation #3 of Greve et al. (2010):
+(./maic2.job run_c03  ) >&! out_mjob_04.dat
+
+# Simulation #4 of Greve et al. (2010):
+(./maic2.job run_c04  ) >&! out_mjob_05.dat
+
+# Simulation #6 of Greve et al. (2010):
+(./maic2.job run_t06  ) >&! out_mjob_06.dat
+
+# Simulation #7 of Greve et al. (2010):
+(./maic2.job run_t07  ) >&! out_mjob_07.dat
+
+# Simulation #8 of Greve et al. (2010):
+(./maic2.job run_t08  ) >&! out_mjob_08.dat
+
+# Simulation #5 of Greve et al. (2010):
+(./maic2.job run_t12  ) >&! out_mjob_09.dat
+
+# Simulation #6 of Greve et al. (2010),
+# continued for 10 million years into the future:
+(./maic2.job run_t13  ) >&! out_mjob_10.dat
+
+# Reference:
+# Greve, R., B. Grieger and O. J. Stenzel. 2010.
+# MAIC-2, a latitudinal model for the Martian surface temperature,
+# atmospheric water transport and surface glaciation.
+# Planetary and Space Science (in press).
