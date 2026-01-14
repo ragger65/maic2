@@ -35,6 +35,3 @@ src/fort*
 !/tmp/.keep
 
 /docs/ford/*
-/docs/quick_start/*
-!/docs/quick_start/MAIC-2_Quick_Start.tex
-!/docs/quick_start/references_maic2.*
