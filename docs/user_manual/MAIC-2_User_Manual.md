@@ -1,5 +1,5 @@
-MAIC-2 Quick Start Manual
-=========================
+MAIC-2 User Manual
+==================
 
 **Ralf Greve** (1), **Björn Grieger** (2), **Oliver J. Stenzel** (3)
 
@@ -9,7 +9,7 @@ MAIC-2 Quick Start Manual
 
 (3) Max Planck Institute for Solar System Research, Justus-von-Liebig-Weg 3, 37077 Göttingen, Germany  
 
-2026-01-14
+2026-01-15
 
 ---
 
@@ -90,8 +90,7 @@ Files and directories in `maic2`
 
 - `docs`:
 
-  Documentation for MAIC-2 (this Quick Start Manual, FORD developer
-  manual).  
+  Documentation for MAIC-2 (this user manual, FORD developer manual).  
   The latter can be built by executing `ford ford.md` in the
   main directory.
 
