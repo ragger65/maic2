@@ -67,6 +67,7 @@ real(dp) :: d_dummy
 character(len=256) :: run_name, file_name
 character(len=256) :: shell_command
 character(len=256) :: ch_revision
+character(len=256) :: ch_line, ch_text
 character :: ch_dummy
 logical :: output_flag
 
@@ -379,6 +380,46 @@ file_name = trim(run_name)//'_out.asc'
 open(12, iostat=ios, &
      file=trim(OUT_PATH)//'/'//trim(file_name), status='new')
 if (ios /= 0) stop ' Error when opening the output file '//trim(file_name)
+
+ch_line = '--------------------------------------------------' &
+       // '--------------------------------------------------'
+
+write(12, fmt=trim(fmt1)) trim(ch_line)
+
+ch_text = 'Column 1: Time t [a]'
+write(12, fmt=trim(fmt1)) trim(ch_text)
+
+ch_text = 'Column 2: Solar longitude L_s [deg]'
+write(12, fmt=trim(fmt1)) trim(ch_text)
+
+ch_text = 'Column 3: Latitude phi [deg]'
+write(12, fmt=trim(fmt1)) trim(ch_text)
+
+ch_text = 'Column 4: Surface temperature T(phi, t) [K]'
+write(12, fmt=trim(fmt1)) trim(ch_text)
+
+ch_text = 'Column 5: Evaporation rate E(phi, t) [kg m-2 a-1]'
+write(12, fmt=trim(fmt1)) trim(ch_text)
+
+ch_text = 'Column 6: Condensation rate C(phi, t) [kg m-2 a-1]'
+write(12, fmt=trim(fmt1)) trim(ch_text)
+
+ch_text = 'Column 7: Water content omega(phi, t) [kg m-2]'
+write(12, fmt=trim(fmt1)) trim(ch_text)
+
+ch_text = 'Column 8: Net mass balance a_net(phi, t) [mm a-1 ice equivalent]'
+write(12, fmt=trim(fmt1)) trim(ch_text)
+
+ch_text = 'Column 9: Ice thickness H(phi, t) [m]'
+write(12, fmt=trim(fmt1)) trim(ch_text)
+
+write(12, fmt=trim(fmt1)) trim(ch_line)
+
+ch_text = '  t               L_s     phi     T       ' &
+       // '  E           C           omega       a_net       H'
+write(12, fmt=trim(fmt1)) trim(ch_text)
+
+write(12, fmt=trim(fmt1)) trim(ch_line)
 
 !-------- Main loop --------
 
