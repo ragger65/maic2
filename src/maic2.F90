@@ -57,79 +57,217 @@ use maic2_variables
 implicit none
 integer(i4b) :: l, n
 integer(i4b) :: n1, n2
-integer(i4b) :: ios
+integer(i4b) :: ios, istat
 integer(i4b) :: itercount_max
 integer(i4b) :: ndata_insol
 real(dp) :: time, time_init, time_end, dtime
 real(dp) :: ls, psi
 real(dp) :: dphi_equi
 real(dp) :: d_dummy
-character (len=256) :: run_name, file_name
+character(len=256) :: run_name, file_name
+character(len=256) :: shell_command
+character(len=256) :: ch_revision
 character :: ch_dummy
 logical :: output_flag
 
-!-------- Initializations --------
+character(len=64), parameter :: fmt1 = '(a)', &
+                                fmt2 = '(a,i0)', &
+                                fmt3 = '(a,es13.5)'
 
-!  ------ Setting of physical parameters
+!-------- Setting of physical parameters --------
 
-  RHO_I       = 9.1e+02_dp
+  RHO_I = 9.1e+02_dp
 !       Density of ice = 910 kg/m3 
 !
-  RHO_W       = 1.0e+03_dp
+  RHO_W = 1.0e+03_dp
 !       Density of pure water = 1000 kg/m3
 !
-  G           = 3.72_dp
+  G = 3.72_dp
 !       Gravity acceleration = 3.72 m/s2 
 !
-  R           = 3.396e+06_dp
+  R = 3.396e+06_dp
 !       Radius of Mars = 3396 km
 
-!  ------ Density of ice-dust mixture
-
-RHO = RHO_I   ! so far no dust considered
+  RHO = RHO_I
+!       Density of ice-dust mixture
+!       (so far no dust considered)
 
 rho_inv = 1.0_dp/RHO
 
-!  ------ Name of current simulation
+!-------- Name of current simulation --------
 
 n1 = len('maic2_specs_')+1
 n2 = len(trim(RUN_SPECS_HEADER))-len('.h')
 run_name = trim(RUN_SPECS_HEADER)
 run_name = run_name(n1:n2)
 
-!  ------ Conversion of time quantities
+!-------- Write log file --------
 
-time_init  = TIME_INIT0*YEAR_SEC    ! a --> s
-time_end   = TIME_END0*YEAR_SEC     ! a --> s
-dtime      = DTIME0*YEAR_SEC        ! a --> s
+shell_command = 'if [ ! -d'
+shell_command = trim(shell_command)//' '//OUT_PATH
+shell_command = trim(shell_command)//' '//'] ; then mkdir'
+shell_command = trim(shell_command)//' '//OUT_PATH
+shell_command = trim(shell_command)//' '//'; fi'
+call execute_command_line(trim(shell_command))
+     ! Check whether directory OUT_PATH exists. If not, it is created.
 
-#if (OUTPUT==1)
-dtime_out = DTIME_OUT0 * YEAR_SEC    ! a --> s
-#elif (OUTPUT==2)
-n_output         = N_OUTPUT
-time_output( 1) = TIME_OUT0_01 * YEAR_SEC    ! a --> s
-time_output( 2) = TIME_OUT0_02 * YEAR_SEC    ! a --> s
-time_output( 3) = TIME_OUT0_03 * YEAR_SEC    ! a --> s
-time_output( 4) = TIME_OUT0_04 * YEAR_SEC    ! a --> s
-time_output( 5) = TIME_OUT0_05 * YEAR_SEC    ! a --> s
-time_output( 6) = TIME_OUT0_06 * YEAR_SEC    ! a --> s
-time_output( 7) = TIME_OUT0_07 * YEAR_SEC    ! a --> s
-time_output( 8) = TIME_OUT0_08 * YEAR_SEC    ! a --> s
-time_output( 9) = TIME_OUT0_09 * YEAR_SEC    ! a --> s
-time_output(10) = TIME_OUT0_10 * YEAR_SEC    ! a --> s
-time_output(11) = TIME_OUT0_11 * YEAR_SEC    ! a --> s
-time_output(12) = TIME_OUT0_12 * YEAR_SEC    ! a --> s
-time_output(13) = TIME_OUT0_13 * YEAR_SEC    ! a --> s
-time_output(14) = TIME_OUT0_14 * YEAR_SEC    ! a --> s
-time_output(15) = TIME_OUT0_15 * YEAR_SEC    ! a --> s
-time_output(16) = TIME_OUT0_16 * YEAR_SEC    ! a --> s
-time_output(17) = TIME_OUT0_17 * YEAR_SEC    ! a --> s
-time_output(18) = TIME_OUT0_18 * YEAR_SEC    ! a --> s
-time_output(19) = TIME_OUT0_19 * YEAR_SEC    ! a --> s
-time_output(20) = TIME_OUT0_20 * YEAR_SEC    ! a --> s
+file_name = trim(run_name)//'.log'
+
+open(10, iostat=ios, &
+     file=trim(OUT_PATH)//'/'//trim(file_name), &
+     status='new')
+
+if (ios /= 0) stop ' Error when opening the log file!'
+
+write(10, fmt=trim(fmt3)) 'RHO_I =', RHO_I
+write(10, fmt=trim(fmt3)) 'RHO_W =', RHO_W
+write(10, fmt=trim(fmt3)) 'G     =', G
+write(10, fmt=trim(fmt3)) 'R     =', R
+write(10, fmt=trim(fmt3)) 'RHO   =', RHO
+
+write(10, fmt=trim(fmt1)) ' '
+
+write(10, fmt=trim(fmt2)) 'LMAX = ', LMAX
+
+write(10, fmt=trim(fmt1)) ' '
+
+write(10, fmt=trim(fmt3)) 'YEAR_SEC  =', YEAR_SEC
+write(10, fmt=trim(fmt3)) 'MARS_YEAR =', MARS_YEAR
+write(10, fmt=trim(fmt3)) 'MARS_DAY  =', MARS_DAY
+
+write(10, fmt=trim(fmt1)) ' '
+
+write(10, fmt=trim(fmt3)) 'TIME_INIT0 =', TIME_INIT0
+write(10, fmt=trim(fmt3)) 'TIME_END0  =', TIME_END0
+
+write(10, fmt=trim(fmt1)) ' '
+write(10, fmt=trim(fmt3)) 'DTIME0 =', DTIME0
+
+write(10, fmt=trim(fmt1)) ' '
+
+write(10, fmt=trim(fmt2)) 'NTIME = ', NTIME
+
+write(10, fmt=trim(fmt1)) ' '
+
+write(10, fmt=trim(fmt1)) 'INSOL_MA_90N_FILE = ' // trim(INSOL_MA_90N_FILE)
+
+write(10, fmt=trim(fmt1)) ' '
+
+write(10, fmt=trim(fmt3)) 'ALBEDO     =', ALBEDO
+write(10, fmt=trim(fmt3)) 'ALBEDO_CO2 =', ALBEDO_CO2
+
+write(10, fmt=trim(fmt1)) ' '
+
+write(10, fmt=trim(fmt3)) 'TEMP_SURF_AMP_EQ  =', TEMP_SURF_AMP_EQ
+write(10, fmt=trim(fmt3)) 'TEMP_SURF_AMP_EXP =', TEMP_SURF_AMP_EXP
+
+write(10, fmt=trim(fmt1)) ' '
+
+write(10, fmt=trim(fmt2)) 'H_INIT = ', H_INIT
+#if (H_INIT==1)
+write(10, fmt=trim(fmt3)) 'THICK_INIT =', THICK_INIT
+#endif
+write(10, fmt=trim(fmt3)) 'WATER_INIT =', WATER_INIT
+
+write(10, fmt=trim(fmt1)) ' '
+
+write(10, fmt=trim(fmt3)) 'P_SURF =', P_SURF
+
+write(10, fmt=trim(fmt1)) ' '
+
+write(10, fmt=trim(fmt3)) 'EVAP_FACT =', EVAP_FACT
+write(10, fmt=trim(fmt3)) 'GAMMA_REG =', GAMMA_REG
+
+write(10, fmt=trim(fmt1)) ' '
+
+write(10, fmt=trim(fmt2)) 'COND = ', COND
+#if (COND==2)
+write(10, fmt=trim(fmt3)) 'TAU_COND =', TAU_COND
 #endif
 
-!  ------ Reading of data for orbital parameters
+write(10, fmt=trim(fmt1)) ' '
+
+write(10, fmt=trim(fmt2)) 'SOLV_DIFF = ', SOLV_DIFF
+#if (SOLV_DIFF<3)
+write(10, fmt=trim(fmt3)) 'DIFF_WATER_MAIC =', DIFF_WATER_MAIC
+#elif (SOLV_DIFF==3)
+#if (defined(RATIO_WATER_NP_SP))
+write(10, fmt=trim(fmt3)) 'RATIO_WATER_NP_SP =', RATIO_WATER_NP_SP
+#endif
+#endif
+
+write(10, fmt=trim(fmt1)) ' '
+
+write(10, fmt=trim(fmt2)) 'OUTPUT = ', OUTPUT
+
+#if (OUTPUT==1)
+
+write(10, fmt=trim(fmt3)) 'DTIME_OUT0 =', DTIME_OUT0
+
+#elif (OUTPUT==2)
+
+write(10, fmt=trim(fmt2)) 'N_OUTPUT = ', N_OUTPUT
+
+n_output = N_OUTPUT
+
+time_output( 1) = TIME_OUT0_01
+time_output( 2) = TIME_OUT0_02
+time_output( 3) = TIME_OUT0_03
+time_output( 4) = TIME_OUT0_04
+time_output( 5) = TIME_OUT0_05
+time_output( 6) = TIME_OUT0_06
+time_output( 7) = TIME_OUT0_07
+time_output( 8) = TIME_OUT0_08
+time_output( 9) = TIME_OUT0_09
+time_output(10) = TIME_OUT0_10
+time_output(11) = TIME_OUT0_11
+time_output(12) = TIME_OUT0_12
+time_output(13) = TIME_OUT0_13
+time_output(14) = TIME_OUT0_14
+time_output(15) = TIME_OUT0_15
+time_output(16) = TIME_OUT0_16
+time_output(17) = TIME_OUT0_17
+time_output(18) = TIME_OUT0_18
+time_output(19) = TIME_OUT0_19
+time_output(20) = TIME_OUT0_20
+
+do n=1, n_output
+   if (n==1) then
+      write(10, fmt=trim(fmt3)) 'TIME_OUTPUT =' , time_output(n)
+   else
+      write(10, fmt=trim(fmt3)) '             ' , time_output(n)
+   end if
+end do
+
+#endif
+
+write(10, fmt=trim(fmt1)) ' '
+
+write(10, fmt=trim(fmt1)) 'Program date: ' // trim(DATE)
+call get_environment_variable(name='REPO_REVISION', value=ch_revision, &
+                              status=istat, trim_name=.true.)
+write(10, fmt=trim(fmt1)) 'Git revision identifier : ' // trim(ch_revision)
+
+close(10, status='keep')
+
+!-------- Conversion of time quantities --------
+
+time_init = TIME_INIT0*YEAR_SEC    ! a --> s
+time_end  = TIME_END0*YEAR_SEC     ! a --> s
+dtime     = DTIME0*YEAR_SEC        ! a --> s
+
+#if (OUTPUT==1)
+
+dtime_out = DTIME_OUT0 * YEAR_SEC    ! a --> s
+
+#elif (OUTPUT==2)
+do n=1, n_output
+   time_output(n) = time_output(n) * YEAR_SEC    ! a --> s
+end do
+
+#endif
+
+!-------- Reading of data for orbital parameters --------
 
 insol_ma_90 = 0.0_dp   ! Assignment of dummy values
 obl_data    = 0.0_dp
@@ -162,9 +300,9 @@ end do
 
 close(21, status='keep')
 
-!  ------ Numerical grid
+!-------- Numerical grid --------
 
-!    ---- Nodes (grid points)
+!  ------ Nodes (grid points)
 
 dphi_equi = 180.0_dp/LMAX *pi_180   ! deg -> rad
 
@@ -175,14 +313,14 @@ do l=0, LMAX
                  ! So far only equidistant grid points implemented.
 end do
 
-!    ---- Spacing
+!  ------ Spacing
 
 do l=1, LMAX
    dphi(l)     = phi_node(l) - phi_node(l-1)
    dphi_inv(l) = 1.0_dp/dphi(l)
 end do
 
-!    ---- Lower cell boundaries
+!  ------ Lower cell boundaries
 
 phi_cb1(0) = phi_node(0)
 do l=1, LMAX
@@ -192,7 +330,7 @@ end do
 cos_phi_cb1 = cos(phi_cb1)
 sin_phi_cb1 = sin(phi_cb1)
 
-!    ---- Upper cell boundaries
+!  ------ Upper cell boundaries
 
 do l=0, LMAX-1
    phi_cb2(l) = 0.5_dp*(phi_node(l)+phi_node(l+1))
@@ -202,13 +340,13 @@ phi_cb2(LMAX) = phi_node(LMAX)
 cos_phi_cb2 = cos(phi_cb2)
 sin_phi_cb2 = sin(phi_cb2)
 
-!    ---- Auxiliary quantity needed for the diffusional transport
+!  ------ Auxiliary quantity needed for the diffusional transport
 
 do l=0, LMAX
    diff_aux(l) = DIFF_WATER_MAIC/(R**2*(sin_phi_cb2(l)-sin_phi_cb1(l)))
 end do
 
-!  ------ Definition of initial values
+!-------- Definition of initial values --------
 
 #if (H_INIT==1)
 
@@ -226,7 +364,7 @@ end do
 
 water = WATER_INIT
 
-!  ------ Output file
+!-------- Output file --------
 
 #if (OUTPUT==1)
 iter_out  = nint(dtime_out/dtime)
