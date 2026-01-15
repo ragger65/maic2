@@ -156,12 +156,12 @@ end do
 
 !-------- Condensation --------
 
-#if COND==1   /* Removal of water exceeding the surface saturation pressure */
+#if (COND==1)   /* Removal of water exceeding the surface saturation pressure */
 
 call setcondpar(gravity=G)
 call getcond_1(temp_surf, water, cond, dtime)
 
-#elif COND==2   /* Continuous, quadratic dependence on humidity */
+#elif (COND==2)   /* Continuous, quadratic dependence on humidity */
 
 tau_cond = TAU_COND*YEAR_SEC   ! a -> s
 call setcondpar(gravity=G, timescale=tau_cond)

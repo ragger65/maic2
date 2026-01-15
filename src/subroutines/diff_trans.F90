@@ -44,11 +44,11 @@ real(dp), dimension(0:LMAX) :: sle_a0, sle_a1, sle_a2, sle_b
 real(dp) :: ratio_water_np_sp
 real(dp) :: water_mean, water_mean_normalized
 
-#if SOLV_DIFF==0
+#if (SOLV_DIFF==0)
 
 stop ' diff_trans: Option SOLV_DIFF==0 not available any more!'
 
-#elif SOLV_DIFF==1   /* Explicit scheme (Euler forward) */
+#elif (SOLV_DIFF==1)   /* Explicit scheme (Euler forward) */
 
 !-------- Direct solution of the Euler forward scheme --------
 
@@ -79,7 +79,7 @@ water_new(l) = water(l) + dtime &
                                           *dphi_inv(l) ) &
                    )
 
-#elif SOLV_DIFF==2   /* Implicit scheme (Euler backward) */
+#elif (SOLV_DIFF==2)   /* Implicit scheme (Euler backward) */
 
 !-------- Setting of matrix and vector components --------
 
@@ -106,12 +106,12 @@ sle_b(l)  = water(l) + dtime * (evap(l)-cond(l))
 
 call tri_sle(sle_a0, sle_a1, sle_a2, water_new, sle_b, LMAX)
 
-#elif SOLV_DIFF==3   /* Instantaneous mixing (optional north-south gradient) */
+#elif (SOLV_DIFF==3)   /* Instantaneous mixing (optional north-south gradient) */
 
 !-------- Ratio of the atmospheric water content at the poles
 !                         (north pole relative to south pole) --------
 
-#if defined(RATIO_WATER_NP_SP)
+#if (defined(RATIO_WATER_NP_SP))
 ratio_water_np_sp = RATIO_WATER_NP_SP   ! prescribed north-south gradient
 #else
 ratio_water_np_sp = 1.0_dp   ! no north-south gradient,

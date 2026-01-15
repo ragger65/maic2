@@ -2,6 +2,8 @@
 !
 !  Program :  m a i c 2
 !
+#define DATE '2026-01-15'
+!
 !! Main program of MAIC-2.
 !!
 !!##### Authors
@@ -29,7 +31,7 @@
 
 !-------- Inclusion of specification header --------
 
-#include "maic2_specs.h"
+#include RUN_SPECS_HEADER
 
 !-------- Inclusion of kind-type and global-variable modules --------
 
@@ -54,6 +56,7 @@ use maic2_variables
 
 implicit none
 integer(i4b) :: l, n
+integer(i4b) :: n1, n2
 integer(i4b) :: ios
 integer(i4b) :: itercount_max
 integer(i4b) :: ndata_insol
@@ -61,7 +64,7 @@ real(dp) :: time, time_init, time_end, dtime
 real(dp) :: ls, psi
 real(dp) :: dphi_equi
 real(dp) :: d_dummy
-character (len=100) :: runname
+character (len=256) :: run_name, file_name
 character :: ch_dummy
 logical :: output_flag
 
@@ -87,9 +90,12 @@ RHO = RHO_I   ! so far no dust considered
 
 rho_inv = 1.0_dp/RHO
 
-!  ------ Specification of current simulation
+!  ------ Name of current simulation
 
-runname = RUNNAME
+n1 = len('maic2_specs_')+1
+n2 = len(trim(RUN_SPECS_HEADER))-len('.h')
+run_name = trim(RUN_SPECS_HEADER)
+run_name = run_name(n1:n2)
 
 !  ------ Conversion of time quantities
 
@@ -97,9 +103,9 @@ time_init  = TIME_INIT0*YEAR_SEC    ! a --> s
 time_end   = TIME_END0*YEAR_SEC     ! a --> s
 dtime      = DTIME0*YEAR_SEC        ! a --> s
 
-#if OUTPUT==1
+#if (OUTPUT==1)
 dtime_out = DTIME_OUT0 * YEAR_SEC    ! a --> s
-#elif OUTPUT==2
+#elif (OUTPUT==2)
 n_output         = N_OUTPUT
 time_output( 1) = TIME_OUT0_01 * YEAR_SEC    ! a --> s
 time_output( 2) = TIME_OUT0_02 * YEAR_SEC    ! a --> s
@@ -132,7 +138,7 @@ ave_data    = 0.0_dp
 cp_data     = 0.0_dp
 
 open(21, iostat=ios, &
-     file=INPATH//'/'//INSOL_MA_90N_FILE, &
+     file=trim(IN_PATH)//'/'//trim(INSOL_MA_90N_FILE), &
      status='old')
 if (ios /= 0) stop ' Error when opening the data file for orbital parameters!'
 
@@ -204,11 +210,11 @@ end do
 
 !  ------ Definition of initial values
 
-#if H_INIT==1
+#if (H_INIT==1)
 
 H = THICK_INIT
 
-#elif H_INIT==2
+#elif (H_INIT==2)
 
 do l=0, LMAX
    H(l) = 3000.0_dp &
@@ -222,18 +228,19 @@ water = WATER_INIT
 
 !  ------ Output file
 
-#if OUTPUT==1
+#if (OUTPUT==1)
 iter_out  = nint(dtime_out/dtime)
-#elif OUTPUT==2
+#elif (OUTPUT==2)
 do n=1, n_output
    iter_output(n) = nint((time_output(n)-time_init)/dtime)
 end do
 #endif
 
+file_name = trim(run_name)//'_out.asc'
+
 open(12, iostat=ios, &
-     file=OUTPATH//'/'//trim(runname)//'.out', &
-     status='replace')
-if (ios /= 0) stop ' Error when opening the output file runname.out!'
+     file=trim(OUT_PATH)//'/'//trim(file_name), status='new')
+if (ios /= 0) stop ' Error when opening the output file '//trim(file_name)
 
 !-------- Main loop --------
 
@@ -268,11 +275,11 @@ main_loop : do itercount=1, itercount_max
 
 output_flag = .false.
 
-#if OUTPUT == 1
+#if (OUTPUT==1)
 
 if ( mod(itercount, iter_out) == 0 ) output_flag = .true.
 
-#elif OUTPUT == 2
+#elif (OUTPUT==2)
 
 do n=1, n_output
    if (itercount == iter_output(n)) output_flag = .true.
