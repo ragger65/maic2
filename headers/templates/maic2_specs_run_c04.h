@@ -1,15 +1,6 @@
-!-------- Specification of current simulation --------
-
-#define RUNNAME 'run_c04'
-!                       Name of simulation
-
-#define INPATH '/uchi/greve/Documents/maic2/maic2_in'
-!                       Directory for input (no '/' at the end!)
-
-#define OUTPATH '/work/deepthought2/greve/maic2_out'
-!                       Directory for output (no '/' at the end!)
-
-!  ------------------
+!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+!                  Specification file maic2_specs_runname.h
+!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 #define LMAX 180
 !                       LMAX+1: number of grid points in latitudinal (phi)
@@ -107,15 +98,19 @@
 
 #define SOLV_DIFF 3
 !                       Solution of the water-diffusion equation:
-!                         0 : Scheme by Bjoern with intermediate transport
-!                             computation [bug???]
 !                         1 : Explicit scheme (Euler forward)
 !                         2 : Implicit scheme (Euler backward)
-!                         3 : Instantaneous mixing (infinite diffusivity)
+!                         3 : Instantaneous mixing
+!                             with optional north-south gradient
 
 #define DIFF_WATER_MAIC 1.0e+02_dp
 !                       Diffusion coefficient of atmospheric water (in m2/s)
 !                       (irrelevant for SOLV_DIFF=3)
+
+#define RATIO_WATER_NP_SP 1.0_dp
+!                       Ratio of the atmospheric water content at the poles
+!                       (north pole relative to south pole; for SOLV_DIFF=3)
+!                       (default value is 1.0_dp, that is, no north-south gradient)
 
 !  ------------------
 
@@ -154,3 +149,5 @@
 !                             Times (in a) for writing of time-slice
 !                             data (only for OUTPUT==2, in increasing
 !                             order from #1 to #N_OUTPUT)
+
+!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
