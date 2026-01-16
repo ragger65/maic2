@@ -1,6 +1,6 @@
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 !
-!  Module :  e v a p o r a t i o n
+!  Module :  e v a p o r a t i o n _ m
 !
 !! Computation of the evaporation rate
 !! (buoyant-diffusion approach by Ingersoll).
@@ -32,9 +32,9 @@
 !> Computation of the evaporation rate
 !! (buoyant-diffusion approach by Ingersoll).
 !-------------------------------------------------------------------------------
-module evaporation
+module evaporation_m
 
-use maic2_types
+use maic2_types_m
 
 implicit none
 real(dp), private :: evap_fact, gamma_reg, &
@@ -167,5 +167,5 @@ contains
 
    end subroutine getevap_bd
 
-end module evaporation
+end module evaporation_m
 !

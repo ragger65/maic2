@@ -32,8 +32,8 @@
 !-------------------------------------------------------------------------------
 subroutine calc_top_maic2(time, dtime)
 
-use maic2_types
-use maic2_variables
+use maic2_types_m
+use maic2_variables_m
 
 implicit none
 

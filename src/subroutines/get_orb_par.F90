@@ -36,8 +36,8 @@
 !-------------------------------------------------------------------------------
 subroutine get_orb_par(time, ecc, obl, cp, ave, insol_ma_90NS)
 
-use maic2_types
-use maic2_variables
+use maic2_types_m
+use maic2_variables_m
 
 implicit none
 

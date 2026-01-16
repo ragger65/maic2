@@ -1,6 +1,6 @@
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 !
-!  Module :  i n s t e m p
+!  Module :  i n s t e m p _ m
 !
 !! Computation of the daily mean surface temperature of Mars
 !! based on obliquity, eccentricity and the anomaly of vernal
@@ -34,9 +34,9 @@
 !! based on obliquity, eccentricity and the anomaly of vernal
 !! equinox (local insolation temperature = LIS scheme).
 !-------------------------------------------------------------------------------
-module instemp
+module instemp_m
 
-   use maic2_types
+   use maic2_types_m
 
    implicit none
 
@@ -309,5 +309,5 @@ contains
 
    end function inst1
 
-end module instemp
+end module instemp_m
 !

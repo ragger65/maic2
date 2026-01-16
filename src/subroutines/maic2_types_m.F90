@@ -1,6 +1,6 @@
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 !
-!  Module :  m a i c 2 _ t y p e s
+!  Module :  m a i c 2 _ t y p e s _ m
 !
 !! Declarations of kind types for MAIC-2.
 !!
@@ -30,7 +30,7 @@
 !-------------------------------------------------------------------------------
 !> Declarations of kind types for MAIC-2.
 !-------------------------------------------------------------------------------
-module maic2_types
+module maic2_types_m
 
 integer, parameter :: i2b = selected_int_kind(4)
    !! 2-byte integers
@@ -41,5 +41,5 @@ integer, parameter :: sp  = kind(1.0)
 integer, parameter :: dp  = kind(1.0d0)
    !! double-precision reals
 
-end module maic2_types
+end module maic2_types_m
 !

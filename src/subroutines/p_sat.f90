@@ -32,7 +32,7 @@
 !-------------------------------------------------------------------------------
 elemental function p_sat(temp_surf) result(psat)
 
-use maic2_types
+use maic2_types_m
 
 implicit none
 

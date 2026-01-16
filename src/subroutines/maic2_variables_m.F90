@@ -1,6 +1,6 @@
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 !
-!  Module :  m a i c 2 _ v a r i a b l e s
+!  Module :  m a i c 2 _ v a r i a b l e s _ m
 !
 !! Declarations of global variables for MAIC-2.
 !!
@@ -30,9 +30,9 @@
 !-------------------------------------------------------------------------------
 !> Declarations of global variables for MAIC-2.
 !-------------------------------------------------------------------------------
-module maic2_variables
+module maic2_variables_m
 
-use maic2_types
+use maic2_types_m
 
 !-------- Field quantities --------
 
@@ -191,5 +191,5 @@ real(dp), parameter :: pi_180_inv = 180.0_dp/pi
 real(dp), parameter :: eps = 1.0e-05_dp
    !! Small number
 
-end module maic2_variables
+end module maic2_variables_m
 !

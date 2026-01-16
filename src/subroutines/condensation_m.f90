@@ -1,6 +1,6 @@
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 !
-!  Module :  c o n d e n s a t i o n
+!  Module :  c o n d e n s a t i o n _ m
 !
 !! Computation of the condensation rate.
 !!
@@ -30,9 +30,9 @@
 !-------------------------------------------------------------------------------
 !> Computation of the condensation rate.
 !-------------------------------------------------------------------------------
-module condensation
+module condensation_m
 
-   use maic2_types
+   use maic2_types_m
 
    implicit none
    real(dp), private :: g
@@ -114,5 +114,5 @@ contains
 
    end subroutine getcond_2
 
-end module condensation
+end module condensation_m
 !

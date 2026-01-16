@@ -35,14 +35,15 @@
 
 !-------- Inclusion of kind-type and global-variable modules --------
 
-#include "subroutines/maic2_types.F90"
-#include "subroutines/maic2_variables.F90"
+#include "subroutines/maic2_types_m.F90"
+#include "subroutines/maic2_variables_m.F90"
 
 !-------- Inclusion of further modules --------
 
-#include "subroutines/instemp.f90"
-#include "subroutines/evaporation.f90"
-#include "subroutines/condensation.f90"
+#include "subroutines/instemp_m.f90"
+#include "subroutines/evaporation_m.f90"
+#include "subroutines/condensation_m.f90"
+#include "subroutines/maic2_maths_m.f90"
 
 !-------------------------------------------------------------------------------
 !> Main program of MAIC-2.
@@ -51,8 +52,8 @@ program maic2
 
 !-------- Modules, variables --------
 
-use maic2_types
-use maic2_variables
+use maic2_types_m
+use maic2_variables_m
 
 implicit none
 integer(i4b) :: l, n
@@ -490,7 +491,6 @@ end program maic2
 #include "subroutines/get_psi_tab.F90"
 #include "subroutines/p_sat.f90"
 #include "subroutines/diff_trans.F90"
-#include "subroutines/tri_sle.F90"
 #include "subroutines/calc_top_maic2.F90"
 #include "subroutines/output.F90"
 
