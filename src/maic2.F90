@@ -41,8 +41,7 @@
 !-------- Inclusion of further modules --------
 
 #include "subroutines/instemp_m.f90"
-#include "subroutines/evaporation_m.f90"
-#include "subroutines/condensation_m.f90"
+#include "subroutines/evap_cond_m.f90"
 #include "subroutines/maic2_maths_m.f90"
 
 !-------------------------------------------------------------------------------
@@ -489,7 +488,6 @@ end program maic2
 #include "subroutines/boundary_maic2.F90"
 #include "subroutines/get_orb_par.F90"
 #include "subroutines/get_psi_tab.F90"
-#include "subroutines/p_sat.f90"
 #include "subroutines/diff_trans.F90"
 #include "subroutines/calc_top_maic2.F90"
 #include "subroutines/output.F90"

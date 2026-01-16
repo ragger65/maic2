@@ -37,8 +37,7 @@ subroutine boundary_maic2(time, ls, psi, dtime)
 use maic2_types_m
 use maic2_variables_m
 use instemp_m
-use evaporation_m
-use condensation_m
+use evap_cond_m
 
 implicit none
 

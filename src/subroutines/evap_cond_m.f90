@@ -1,9 +1,9 @@
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 !
-!  Module :  e v a p o r a t i o n _ m
+!  Module :  e v a p _ c o n d _ m
 !
-!! Computation of the evaporation rate
-!! (buoyant-diffusion approach by Ingersoll).
+!! Computation of the evaporation rate (buoyant-diffusion approach by Ingersoll)
+!! and of the condensation rate.
 !!
 !!##### Authors
 !!
@@ -29,21 +29,21 @@
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 !-------------------------------------------------------------------------------
-!> Computation of the evaporation rate
-!! (buoyant-diffusion approach by Ingersoll).
+!> Computation of the evaporation rate (buoyant-diffusion approach by Ingersoll)
+!! and of the condensation rate.
 !-------------------------------------------------------------------------------
-module evaporation_m
+module evap_cond_m
 
 use maic2_types_m
 
 implicit none
 real(dp), private :: evap_fact, gamma_reg, &
-                     R_univ, mol_w, mol_c, diff_w_c, visc_c, g
+                     R_univ, mol_w, mol_c, diff_w_c, visc_c, g, tau
 
 contains
 
 !-------------------------------------------------------------------------------
-!> Setting of parameters.
+!> Setting of parameters for evapotation.
 !-------------------------------------------------------------------------------
    subroutine setevappar_bd(evap_fact_para, gamma_reg_para, &
                             R_univ_para, mol_w_para, mol_c_para, &
@@ -116,7 +116,7 @@ contains
 
    integer(i4b) :: i, hr, n
    real(dp) :: inv_visc_c_2, one_third, one_eighth
-   real(dp) :: p_sat, delta_eta, rho, &
+   real(dp) :: delta_eta, rho, &
                delta_rho_rho_1, delta_rho_rho_2, delta_rho_rho, &
                inv_length, inv_gamma_reg, &
                temp_hr, evap_hr
@@ -167,5 +167,100 @@ contains
 
    end subroutine getevap_bd
 
-end module evaporation_m
+!-------------------------------------------------------------------------------
+!> Setting of parameters for condensation.
+!-------------------------------------------------------------------------------
+   subroutine setcondpar(gravity, timescale)
+
+   implicit none
+
+   real(dp), optional :: gravity, timescale
+
+   if ( present(gravity) ) then
+      g = gravity
+   else
+      g = 3.7_dp ! m/s**2
+   end if
+
+   if ( present(timescale) ) then
+      tau = timescale
+   else
+      tau = 24.622962_dp*3600.0_dp ! length of Martian day (sol) in seconds
+   end if
+
+   end subroutine setcondpar
+   
+!-------------------------------------------------------------------------------
+!> Computation of condensation
+!! (removal of water exceeding the saturation pressure at the surface).
+!-------------------------------------------------------------------------------
+   subroutine getcond_1(temp, water, cond, dtime)
+
+   implicit none
+
+   real(dp) :: temp(:), water(:), cond(:)
+   real(dp) :: dtime
+
+   integer(i4b) :: i, n
+   real(dp) :: g_inv, dtime_inv
+   real(dp) :: water_excess
+
+   g_inv     = 1.0_dp/g
+   dtime_inv = 1.0_dp/dtime
+
+   n = size(cond)
+
+   do i = 1, n
+      water_excess = water(i) - p_sat(temp(i))*g_inv
+      if (water_excess > 0.0_dp) then
+         cond(i) = water_excess*dtime_inv
+      else
+         cond(i) = 0.0_dp
+      end if
+   end do
+
+   end subroutine getcond_1
+   
+!-------------------------------------------------------------------------------
+!> Computation of condensation (continuous, quadratic dependence on humidity).
+!-------------------------------------------------------------------------------
+   subroutine getcond_2(temp, water, cond)
+
+   implicit none
+
+   real(dp) :: temp(:), water(:), cond(:)
+
+   integer(i4b) :: i, n
+
+   n = size(cond)
+
+   do i = 1, n
+      cond(i) = (g/tau) * water(i)**2 / p_sat(temp(i))
+   end do
+
+   end subroutine getcond_2
+
+!-------------------------------------------------------------------------------
+!> Computation of the water-vapour saturation pressure.
+!-------------------------------------------------------------------------------
+   elemental function p_sat(temp_surf) result(psat)
+
+   implicit none
+
+   real(dp), intent(in) :: temp_surf
+
+   real(dp) :: psat
+
+   ! psat = exp( -5504.4088_dp * temp_surf**(-1) &
+   !             - 3.5704628_dp &
+   !             - 1.7337458e-2_dp * temp_surf &
+   !             + 6.5204209e-6_dp * temp_surf**2 &
+   !             + 6.1295027_dp * log(temp_surf) )
+
+   psat = 610.66_dp * exp( 21.875_dp*(temp_surf-273.16_dp)/ &
+                                     (temp_surf-  7.65_dp) )
+
+   end function p_sat
+
+end module evap_cond_m
 !
