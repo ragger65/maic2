@@ -47,9 +47,10 @@ Requirements
 Download
 --------
 
-Cloning the latest revision from the GitHub repository:
+Cloning the latest revision from the GitHub repository with either HTTPS or SSH:
 
-`git clone https://github.com/ragger65/maic2.git`
+HTTPS: `git clone https://github.com/ragger65/maic2.git`  
+SSH: `git clone git@github.com:ragger65/maic2.git`
 
 You should then have a new folder `maic2` that contains the entire program package.
 
@@ -70,6 +71,7 @@ Directory structure
   repeated calls of `maic2.sh`.
 
 - `headers`:
+
   Run-specs header files `maic2_specs_<run_name>.h` (see below) for the simulations to be carried out with MAIC-2.
 
 - `src`:
