@@ -5,6 +5,9 @@
 
 my_*
 
+/*.sh
+!/copy_templates.sh
+
 /out*
 /*.dat
 /*.txt

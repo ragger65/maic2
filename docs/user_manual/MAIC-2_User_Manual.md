@@ -57,7 +57,7 @@ Change to `maic2` and execute the bash script `copy_templates.sh`:
 
 `./copy_templates.sh`
 
-It copies the run-specs header files from `headers/templates` to `headers`. This allows modifying the headers suitably if needed, while the original files are always stored in the templates subdirectory for reference.
+It copies several scripts from `templates` to `.` (the main directory), and the run-specs header files from `headers/templates` to `headers`. This allows modifying the scripts and headers suitably if needed, while the original files are always stored in the respective templates subdirectories for reference.
 
 Directory structure
 -------------------
