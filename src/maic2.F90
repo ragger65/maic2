@@ -2,7 +2,7 @@
 !
 !  Program :  m a i c 2
 !
-#define DATE '2026-01-15'
+#define DATE '2026-01-16'
 !
 !! Main program of MAIC-2.
 !!
@@ -44,6 +44,8 @@
 #include "subroutines/evap_cond_m.f90"
 #include "subroutines/maic2_maths_m.f90"
 
+#include "subroutines/boundary_maic2_m.F90"
+
 !-------------------------------------------------------------------------------
 !> Main program of MAIC-2.
 !-------------------------------------------------------------------------------
@@ -53,6 +55,8 @@ program maic2
 
 use maic2_types_m
 use maic2_variables_m
+
+use boundary_maic2_m
 
 implicit none
 integer(i4b) :: l, n
@@ -485,9 +489,6 @@ end program maic2
 
 !-------- Inclusion of subroutines --------
 
-#include "subroutines/boundary_maic2.F90"
-#include "subroutines/get_orb_par.F90"
-#include "subroutines/get_psi_tab.F90"
 #include "subroutines/diff_trans.F90"
 #include "subroutines/calc_top_maic2.F90"
 #include "subroutines/output.F90"

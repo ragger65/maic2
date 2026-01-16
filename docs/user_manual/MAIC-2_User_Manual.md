@@ -9,7 +9,7 @@ MAIC-2 User Manual
 
 (3) Max Planck Institute for Solar System Research, Justus-von-Liebig-Weg 3, 37077 Göttingen, Germany  
 
-2026-01-15
+2026-01-16
 
 ---
 
