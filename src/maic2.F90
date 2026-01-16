@@ -35,7 +35,7 @@
 
 !-------- Inclusion of modules --------
 
-#include "subroutines/maic2_types_m.F90"
+#include "subroutines/maic2_types_m.f90"
 #include "subroutines/maic2_variables_m.F90"
 #include "subroutines/maic2_maths_m.f90"
 
