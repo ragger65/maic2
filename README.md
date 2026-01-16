@@ -6,6 +6,8 @@ The Mars Atmosphere-Ice Coupler MAIC-2 is a simple, latitudinal (zonally average
 Resources
 ---------
 
+User manual: in the directory `docs/user_manual/`
+
 GitHub repository:
 [https://github.com/ragger65/maic2/](https://github.com/ragger65/maic2/)
 
