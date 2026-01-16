@@ -1,6 +1,6 @@
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 !
-!  Subroutine :  o u t p u t
+!  Module :  o u t p u t _ m
 !
 !! Data output.
 !!
@@ -30,29 +30,42 @@
 !-------------------------------------------------------------------------------
 !> Data output.
 !-------------------------------------------------------------------------------
-subroutine output(time, ls)
+module output_m
 
 use maic2_types_m
 use maic2_variables_m
 
 implicit none
 
-real(dp), intent(in) :: time, ls
+contains
 
-integer(i4b) :: l
+!-------------------------------------------------------------------------------
+!> Main subroutine: Data output.
+!-------------------------------------------------------------------------------
+  subroutine output(time, ls)
 
-do l=0, LMAX
-   write(12, '(es14.6,f9.3,f7.1,f10.3,5es12.3)') &
-        time/YEAR_SEC, &                  ! in a
-        ls*pi_180_inv, &                  ! in deg
-        phi_node(l)*pi_180_inv, &         ! in deg
-        temp_surf(l), &                   ! in K
-        evap(l)*YEAR_SEC, &               ! in kg/(m^2*a)
-        cond(l)*YEAR_SEC, &               ! in kg/(m^2*a)
-        water(l), &                       ! in kg/m^2
-        a_net(l)*1.0e+03_dp*YEAR_SEC, &   ! in mm ice equiv./a
-        H(l)                              ! in m
-end do
+  implicit none
 
-end subroutine output
+  real(dp), intent(in) :: time, ls
+
+  integer(i4b) :: l
+
+  do l=0, LMAX
+     write(12, '(es14.6,f9.3,f7.1,f10.3,5es12.3)') &
+          time/YEAR_SEC, &                  ! in a
+          ls*pi_180_inv, &                  ! in deg
+          phi_node(l)*pi_180_inv, &         ! in deg
+          temp_surf(l), &                   ! in K
+          evap(l)*YEAR_SEC, &               ! in kg/(m^2*a)
+          cond(l)*YEAR_SEC, &               ! in kg/(m^2*a)
+          water(l), &                       ! in kg/m^2
+          a_net(l)*1.0e+03_dp*YEAR_SEC, &   ! in mm ice equiv./a
+          H(l)                              ! in m
+  end do
+
+  end subroutine output
+
+!-------------------------------------------------------------------------------
+
+end module output_m
 !

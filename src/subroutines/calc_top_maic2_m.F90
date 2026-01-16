@@ -1,6 +1,6 @@
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 !
-!  Subroutine :  c a l c _ t o p _ m a i c 2
+!  Module :  c a l c _ t o p _ m a i c 2 _ m
 !
 !! Computation of the ice-cap topography.
 !!
@@ -30,22 +30,35 @@
 !-------------------------------------------------------------------------------
 !> Computation of the ice-cap topography.
 !-------------------------------------------------------------------------------
-subroutine calc_top_maic2(time, dtime)
+module calc_top_maic2_m
 
 use maic2_types_m
 use maic2_variables_m
 
 implicit none
 
-real(dp), intent(in) :: time, dtime
+contains
 
-integer(i4b) :: l, n
+!-------------------------------------------------------------------------------
+!> Main subroutine: Computation of the ice-cap topography.
+!-------------------------------------------------------------------------------
+  subroutine calc_top_maic2(time, dtime)
+
+  implicit none
+
+  real(dp), intent(in) :: time, dtime
+
+  integer(i4b) :: l, n
 
 !-------- Numerical integration --------
 
-do l=0, LMAX
-   H_new(l) = H(l) + dtime*a_net(l)
-end do
+  do l=0, LMAX
+     H_new(l) = H(l) + dtime*a_net(l)
+  end do
 
-end subroutine calc_top_maic2
+  end subroutine calc_top_maic2
+
+!-------------------------------------------------------------------------------
+
+end module calc_top_maic2_m
 !

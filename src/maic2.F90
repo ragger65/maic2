@@ -29,22 +29,22 @@
 !
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-!-------- Inclusion of specification header --------
+!-------- Inclusion of run-specification header --------
 
 #include RUN_SPECS_HEADER
 
-!-------- Inclusion of kind-type and global-variable modules --------
+!-------- Inclusion of modules --------
 
 #include "subroutines/maic2_types_m.F90"
 #include "subroutines/maic2_variables_m.F90"
 #include "subroutines/maic2_maths_m.f90"
 
-!-------- Inclusion of further modules --------
-
 #include "subroutines/instemp_m.f90"
 #include "subroutines/evap_cond_m.f90"
 
 #include "subroutines/boundary_maic2_m.F90"
+#include "subroutines/calc_top_maic2_m.F90"
+#include "subroutines/output_m.F90"
 
 !-------------------------------------------------------------------------------
 !> Main program of MAIC-2.
@@ -57,6 +57,8 @@ use maic2_types_m
 use maic2_variables_m
 
 use boundary_maic2_m
+use calc_top_maic2_m
+use output_m
 
 implicit none
 integer(i4b) :: l, n
@@ -486,11 +488,6 @@ write(6,'(a)') ' '
 write(6,'(a)') ' '
 
 end program maic2
-
-!-------- Inclusion of subroutines --------
-
-#include "subroutines/calc_top_maic2.F90"
-#include "subroutines/output.F90"
 
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 !                          End of maic2.F90
