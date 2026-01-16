@@ -37,12 +37,12 @@
 
 #include "subroutines/maic2_types_m.F90"
 #include "subroutines/maic2_variables_m.F90"
+#include "subroutines/maic2_maths_m.f90"
 
 !-------- Inclusion of further modules --------
 
 #include "subroutines/instemp_m.f90"
 #include "subroutines/evap_cond_m.f90"
-#include "subroutines/maic2_maths_m.f90"
 
 #include "subroutines/boundary_maic2_m.F90"
 
@@ -489,7 +489,6 @@ end program maic2
 
 !-------- Inclusion of subroutines --------
 
-#include "subroutines/diff_trans.F90"
 #include "subroutines/calc_top_maic2.F90"
 #include "subroutines/output.F90"
 
