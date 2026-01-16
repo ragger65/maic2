@@ -32,7 +32,7 @@ Greve, R., B. Grieger and O. J. Stenzel. 2012. Glaciation of Mars from 10 millio
 
 ##### Resources
 
-- Quick Start Manual: <https://doi.org/10.5281/zenodo.3696080>  
+- User manual: in the directory `docs/user_manual/`
 - GitHub repository: <https://github.com/ragger65/maic2/>  
 - MAIC-2 community @ Zenodo: <https://zenodo.org/communities/maic2/>
 
@@ -42,7 +42,7 @@ Copyright 2010-2026 Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
 
 ##### License
 
-MAIC-2 is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+MAIC-2 is free and open-source software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
 MAIC-2 is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
