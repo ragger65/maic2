@@ -3,6 +3,16 @@ MAIC-2
 
 The Mars Atmosphere-Ice Coupler MAIC-2 is a simple, latitudinal (zonally averaged) model that consists of a set of parameterizations for the surface temperature, the atmospheric water transport and the surface mass balance (condensation minus evaporation) of water ice. It is driven directly by the orbital parameters obliquity, eccentricity and solar longitude of perihelion.
 
+Authors
+-------
+
+Ralf Greve (1,2), Björn Grieger (3), Oliver J. Stenzel (4)
+
+(1) Institute of Low Temperature Science, Hokkaido University, Sapporo, Japan  
+(2) Arctic Research Center, Hokkaido University, Sapporo, Japan  
+(3) European Space Astronomy Centre (ESAC), Villanueva de la Cañada, Madrid, Spain  
+(4) Max Planck Institute for Solar System Research, Göttingen, Germany
+
 Resources
 ---------
 

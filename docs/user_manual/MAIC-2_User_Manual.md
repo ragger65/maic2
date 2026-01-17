@@ -1,13 +1,12 @@
 MAIC-2 User Manual
 ==================
 
-**Ralf Greve** (1), **Björn Grieger** (2), **Oliver J. Stenzel** (3)
+**Ralf Greve** (1,2), **Björn Grieger** (3), **Oliver J. Stenzel** (4)
 
-(1) Institute of Low Temperature Science, Hokkaido University, Kita-19, Nishi-8, Kita-ku, Sapporo 060-0819, Japan  
-
-(2) European Space Astronomy Centre (ESAC), Camino Bajo del Castillo s/n, 28692 Villanueva de la Cañada, Madrid, Spain  
-
-(3) Max Planck Institute for Solar System Research, Justus-von-Liebig-Weg 3, 37077 Göttingen, Germany  
+(1) Institute of Low Temperature Science, Hokkaido University, Sapporo, Japan  
+(2) Arctic Research Center, Hokkaido University, Sapporo, Japan  
+(3) European Space Astronomy Centre (ESAC), Villanueva de la Cañada, Madrid, Spain  
+(4) Max Planck Institute for Solar System Research, Göttingen, Germany
 
 2026-01-16
 
