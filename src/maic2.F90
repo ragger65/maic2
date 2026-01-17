@@ -2,7 +2,7 @@
 !
 !  Program :  m a i c 2
 !
-#define DATE '2026-01-16'
+#define DATE '2026-01-17'
 !
 !! Main program of MAIC-2.
 !!
@@ -371,7 +371,7 @@ end do
 
 water = WATER_INIT
 
-!-------- Output file --------
+!-------- Output files --------
 
 #if (OUTPUT==1)
 iter_out  = nint(dtime_out/dtime)
@@ -381,14 +381,16 @@ do n=1, n_output
 end do
 #endif
 
-file_name = trim(run_name)//'_out.asc'
+!  ------ File #1 (only time-dependent variables)
+
+file_name = trim(run_name)//'_out1.asc'
 
 open(12, iostat=ios, &
      file=trim(OUT_PATH)//'/'//trim(file_name), status='new')
 if (ios /= 0) stop ' Error when opening the output file '//trim(file_name)
 
-ch_line = '--------------------------------------------------' &
-       // '--------------------------------------------------'
+ch_line = '--------------------------------------' &
+       // '-----------------------------------------'
 
 write(12, fmt=trim(fmt1)) trim(ch_line)
 
@@ -398,34 +400,74 @@ write(12, fmt=trim(fmt1)) trim(ch_text)
 ch_text = 'Column 2: Solar longitude L_s [deg]'
 write(12, fmt=trim(fmt1)) trim(ch_text)
 
-ch_text = 'Column 3: Latitude phi [deg]'
+ch_text = 'Column 3: Ice thickness at the north pole H_NP [m]'
 write(12, fmt=trim(fmt1)) trim(ch_text)
 
-ch_text = 'Column 4: Surface temperature T(phi, t) [K]'
+ch_text = 'Column 4: Ice thickness at the south pole H_SP [m]'
 write(12, fmt=trim(fmt1)) trim(ch_text)
 
-ch_text = 'Column 5: Evaporation rate E(phi, t) [kg m-2 a-1]'
+ch_text = 'Column 5: Volume of the north-polar layered deposits (>= 75 degN)'
+write(12, fmt=trim(fmt1)) trim(ch_text)
+ch_text = '          V_NPLD [m3]'
 write(12, fmt=trim(fmt1)) trim(ch_text)
 
-ch_text = 'Column 6: Condensation rate C(phi, t) [kg m-2 a-1]'
+ch_text = 'Column 6: Volume of the south-polar layered deposits (>= 75 degS)'
 write(12, fmt=trim(fmt1)) trim(ch_text)
-
-ch_text = 'Column 7: Water content omega(phi, t) [kg m-2]'
-write(12, fmt=trim(fmt1)) trim(ch_text)
-
-ch_text = 'Column 8: Net mass balance a_net(phi, t) [mm a-1 ice equivalent]'
-write(12, fmt=trim(fmt1)) trim(ch_text)
-
-ch_text = 'Column 9: Ice thickness H(phi, t) [m]'
+ch_text = '          V_SPLD [m3]'
 write(12, fmt=trim(fmt1)) trim(ch_text)
 
 write(12, fmt=trim(fmt1)) trim(ch_line)
 
-ch_text = '  t               L_s     phi     T       ' &
-       // '  E           C           omega       a_net       H'
+ch_text = '  t               L_s' &
+       // '      H_NP          H_SP          V_NPLD        V_SPLD'
 write(12, fmt=trim(fmt1)) trim(ch_text)
 
 write(12, fmt=trim(fmt1)) trim(ch_line)
+
+!  ------ File #2 (time- and latitude-dependent variables)
+
+file_name = trim(run_name)//'_out2.asc'
+
+open(13, iostat=ios, &
+     file=trim(OUT_PATH)//'/'//trim(file_name), status='new')
+if (ios /= 0) stop ' Error when opening the output file '//trim(file_name)
+
+ch_line = '-------------------------------------------------' &
+       // '----------------------------------------------------'
+
+write(13, fmt=trim(fmt1)) trim(ch_line)
+
+ch_text = 'Column 1: Time t [a]'
+write(13, fmt=trim(fmt1)) trim(ch_text)
+
+ch_text = 'Column 2: Latitude phi [deg]'
+write(13, fmt=trim(fmt1)) trim(ch_text)
+
+ch_text = 'Column 3: Surface temperature T(phi, t) [K]'
+write(13, fmt=trim(fmt1)) trim(ch_text)
+
+ch_text = 'Column 4: Evaporation rate E(phi, t) [kg m-2 a-1]'
+write(13, fmt=trim(fmt1)) trim(ch_text)
+
+ch_text = 'Column 5: Condensation rate C(phi, t) [kg m-2 a-1]'
+write(13, fmt=trim(fmt1)) trim(ch_text)
+
+ch_text = 'Column 6: Water content omega(phi, t) [kg m-2]'
+write(13, fmt=trim(fmt1)) trim(ch_text)
+
+ch_text = 'Column 7: Net mass balance a_net(phi, t) [mm a-1 ice equivalent]'
+write(13, fmt=trim(fmt1)) trim(ch_text)
+
+ch_text = 'Column 8: Ice thickness H(phi, t) [m]'
+write(13, fmt=trim(fmt1)) trim(ch_text)
+
+write(13, fmt=trim(fmt1)) trim(ch_line)
+
+ch_text = '  t              phi     T       ' &
+       // '  E             C             omega         a_net         H'
+write(13, fmt=trim(fmt1)) trim(ch_text)
+
+write(13, fmt=trim(fmt1)) trim(ch_line)
 
 !-------- Main loop --------
 
@@ -479,6 +521,7 @@ end do main_loop   ! End of main loop
 !-------- End of main program --------
 
 close(12, status='keep')
+close(13, status='keep')
 
 write(6,'(a)') ' '
 write(6,'(a)') ' '

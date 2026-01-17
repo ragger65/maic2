@@ -48,19 +48,42 @@ contains
 
   real(dp), intent(in) :: time, ls
 
-  integer(i4b) :: l
+  integer(i4b)      :: l
+  real(dp)          :: H_NP, H_SP
+  real(dp)          :: V_NPLD, V_SPLD
+  character(len=64) :: ch_fmt
+
+  H_NP = H(LMAX)   ! ice thickness at the north pole
+  H_SP = H(0)      ! ice thickness at the south pole
+
+  V_NPLD = 9.99999e+09_dp
+           ! Volume of the north-polar layered deposits (>= 75 degN)
+  V_SPLD = 9.99999e+09_dp
+           ! Volume of the south-polar layered deposits (>= 75 degS)
+           !!! DUMMIES, STILL TO BE COMPUTED !!!
+
+  ch_fmt = '(es14.6,f9.3,4es14.5)'
+
+  write(12, trim(ch_fmt)) &
+            time/YEAR_SEC , &   ! in a
+            ls*pi_180_inv , &   ! in deg
+            H_NP          , &   ! in m
+            H_SP          , &   ! in m
+            V_NPLD        , &   ! in m3
+            V_SPLD              ! in m3
+
+  ch_fmt = '(es14.6,f7.1,f10.3,5es14.5)'
 
   do l=0, LMAX
-     write(12, '(es14.6,f9.3,f7.1,f10.3,5es12.3)') &
-          time/YEAR_SEC, &                  ! in a
-          ls*pi_180_inv, &                  ! in deg
-          phi_node(l)*pi_180_inv, &         ! in deg
-          temp_surf(l), &                   ! in K
-          evap(l)*YEAR_SEC, &               ! in kg/(m^2*a)
-          cond(l)*YEAR_SEC, &               ! in kg/(m^2*a)
-          water(l), &                       ! in kg/m^2
-          a_net(l)*1.0e+03_dp*YEAR_SEC, &   ! in mm ice equiv./a
-          H(l)                              ! in m
+     write(13, trim(ch_fmt)) &
+               time/YEAR_SEC                , &   ! in a
+               phi_node(l)*pi_180_inv       , &   ! in deg
+               temp_surf(l)                 , &   ! in K
+               evap(l)*YEAR_SEC             , &   ! in kg/(m^2*a)
+               cond(l)*YEAR_SEC             , &   ! in kg/(m^2*a)
+               water(l)                     , &   ! in kg/m^2
+               a_net(l)*1.0e+03_dp*YEAR_SEC , &   ! in mm ice equiv./a
+               H(l)                               ! in m
   end do
 
   end subroutine output
