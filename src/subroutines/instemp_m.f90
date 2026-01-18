@@ -8,7 +8,7 @@
 !!
 !!##### Authors
 !!
-!! Ralf Greve, Bjoern Grieger, Oliver J. Stenzel
+!! Bjoern Grieger, Oliver J. Stenzel, Ralf Greve
 !!
 !!##### License
 !!
