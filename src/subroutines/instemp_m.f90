@@ -69,7 +69,7 @@ contains
       logical      :: co2layer(-90:90)
       integer(i4b) :: iphi, ipsi, year
       integer(i4b), parameter :: yearmax = 2
-      real(dp), parameter :: pi = 3.141592653589793_dp, pi_180 = pi/180.0_dp
+      real(dp), parameter :: pi = 3.141592653589793_dp, deg2rad = pi/180.0_dp
       real(dp), parameter :: SB = 5.67051e-8_dp
                              ! Wikipedia gives 5.670400E-8 +- 0.000040E-8
       real(dp) :: tptd, seps, sdelta, cdelta
@@ -129,14 +129,14 @@ contains
 
       j0 = j0 / a**2
       f = a * e
-      psi0 = psi0 * pi_180
-      eps = eps * pi_180
+      psi0 = psi0 * deg2rad
+      eps = eps * deg2rad
       
       seps = sin(eps)
 
       usum = 0.0_dp
       do ipsi = 0, 360, 1
-         psi = ipsi * pi_180
+         psi = ipsi * deg2rad
          r = ( a**2 - f**2 ) / ( a + f*cos(psi) )
          du = r**2
          if (ipsi<360) usum = usum + du
@@ -149,7 +149,7 @@ contains
       do year = 1, yearmax
          usum = 0.0_dp
          do ipsi = 0, 360, 1
-            psi = ipsi * pi_180
+            psi = ipsi * deg2rad
             r = ( a**2 - f**2 ) / ( a + f*cos(psi) )
             du = ufac * r**2
             if (ipsi<360) usum = usum + du
@@ -158,7 +158,7 @@ contains
             sdelta = sin(delta)
             cdelta = cos(delta)
             do iphi = -89, 89, 1
-               phi = iphi * pi_180
+               phi = iphi * deg2rad
                tptd = -tan(phi) * tan(delta)
                if ( tptd .le. -1.0_dp ) then
                   tau0 = pi

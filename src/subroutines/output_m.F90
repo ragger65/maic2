@@ -50,23 +50,62 @@ contains
 
   integer(i4b)      :: l
   real(dp)          :: H_NP, H_SP
+  real(dp)          :: phi_PLD
   real(dp)          :: V_NPLD, V_SPLD
+
   character(len=64) :: ch_fmt
 
-  H_NP = H(LMAX)   ! ice thickness at the north pole
-  H_SP = H(0)      ! ice thickness at the south pole
+!-------- Compute ice thicknesses at the poles --------
 
-  V_NPLD = 9.99999e+09_dp
-           ! Volume of the north-polar layered deposits (>= 75 degN)
-  V_SPLD = 9.99999e+09_dp
-           ! Volume of the south-polar layered deposits (>= 75 degS)
-           !!! DUMMIES, STILL TO BE COMPUTED !!!
+  H_NP = H(LMAX)   ! north pole
+  H_SP = H(0)      ! south pole
+
+!-------- Compute volumes of the polar layered deposits --------
+
+  phi_PLD = (75.0_dp-epsil) *deg2rad
+                   ! equatorward extent of the PLDs, in rad
+
+!  ------ SPLD
+
+  l=0   ! 90 degS
+
+  V_SPLD = max(H(l), 0.0_dp) &
+              * ( 1.0_dp + sin( 0.5_dp*(phi_node(l)+phi_node(l+1)) ) )
+
+  do l=1, LMAX-1
+     if (abs(phi_node(l)) >= phi_PLD) then
+        V_SPLD = V_SPLD + max(H(l), 0.0_dp) &
+                    * (   sin( 0.5_dp*(phi_node(l)+phi_node(l+1)) ) &
+                        - sin( 0.5_dp*(phi_node(l)+phi_node(l-1)) ) )
+     end if
+  end do
+
+  V_SPLD = V_SPLD * (2.0_dp*pi*R**2)
+
+!  ------ NPLD
+
+  l=LMAX   ! 90 degN
+
+  V_NPLD = max(H(l), 0.0_dp) &
+              * ( 1.0_dp - sin( 0.5_dp*(phi_node(l)+phi_node(l-1)) ) )
+
+  do l=LMAX-1, 1, -1
+     if (abs(phi_node(l)) >= phi_PLD) then
+        V_NPLD = V_NPLD + max(H(l), 0.0_dp) &
+                    * (   sin( 0.5_dp*(phi_node(l)+phi_node(l+1)) ) &
+                        - sin( 0.5_dp*(phi_node(l)+phi_node(l-1)) ) )
+     end if
+  end do
+
+  V_NPLD = V_NPLD * (2.0_dp*pi*R**2)
+
+!-------- Write data on file --------
 
   ch_fmt = '(es14.6,f9.3,4es14.5)'
 
   write(12, trim(ch_fmt)) &
             time/YEAR_SEC , &   ! in a
-            ls*pi_180_inv , &   ! in deg
+            ls*rad2deg    , &   ! in deg
             H_NP          , &   ! in m
             H_SP          , &   ! in m
             V_NPLD        , &   ! in m3
@@ -77,7 +116,7 @@ contains
   do l=0, LMAX
      write(13, trim(ch_fmt)) &
                time/YEAR_SEC                , &   ! in a
-               phi_node(l)*pi_180_inv       , &   ! in deg
+               phi_node(l)*rad2deg          , &   ! in deg
                temp_surf(l)                 , &   ! in K
                evap(l)*YEAR_SEC             , &   ! in kg/(m^2*a)
                cond(l)*YEAR_SEC             , &   ! in kg/(m^2*a)

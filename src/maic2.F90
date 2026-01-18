@@ -2,7 +2,7 @@
 !
 !  Program :  m a i c 2
 !
-#define DATE '2026-01-17'
+#define DATE '2026-01-18'
 !
 !! Main program of MAIC-2.
 !!
@@ -301,8 +301,8 @@ if (ndata_insol > 100000) &
 
 do n=0, ndata_insol
    read(21,*) d_dummy, ecc_data(n), obl_data(n), cp_data(n), ave_data(n), insol_ma_90(n)
-   obl_data(n) = obl_data(n) *pi_180   ! deg -> rad
-   ave_data(n) = ave_data(n) *pi_180   ! deg -> rad
+   obl_data(n) = obl_data(n) *deg2rad   ! deg -> rad
+   ave_data(n) = ave_data(n) *deg2rad   ! deg -> rad
 end do
 
 close(21, status='keep')
@@ -311,10 +311,10 @@ close(21, status='keep')
 
 !  ------ Nodes (grid points)
 
-dphi_equi = 180.0_dp/LMAX *pi_180   ! deg -> rad
+dphi_equi = (180.0_dp/LMAX) *deg2rad   ! deg -> rad
 
 do l=0, LMAX
-   phi_node(l) = -90.0_dp*pi_180 + dble(l)*dphi_equi
+   phi_node(l) = -90.0_dp*deg2rad + dble(l)*dphi_equi
                  ! Grid points laid out between -90 deg (90S, south pole)
                  ! and +90 deg (90N, north pole).
                  ! So far only equidistant grid points implemented.
@@ -363,7 +363,7 @@ H = THICK_INIT
 
 do l=0, LMAX
    H(l) = 3000.0_dp &
-          * ( 1.0_dp-(90.0_dp*pi_180-abs(phi_node(l)))**2/(10.0_dp*pi_180)**2 )
+          * ( 1.0_dp-(90.0_dp*deg2rad-abs(phi_node(l)))**2/(10.0_dp*deg2rad)**2 )
    H(l) = max(H(l), -0.1_dp)
 end do
 

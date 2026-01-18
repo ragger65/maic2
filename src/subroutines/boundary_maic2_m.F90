@@ -92,8 +92,8 @@ contains
 
      call get_psi_tab(ecc, ave)
 
-     call setinstemp(temp, ecc = ecc, ave = ave*pi_180_inv, &
-                           obl = obl*pi_180_inv, &
+     call setinstemp(temp, ecc = ecc, ave = ave*rad2deg, &
+                           obl = obl*rad2deg, &
                            sa = ALBEDO, sac = ALBEDO_CO2, op = MARS_YEAR, &
                            ct = temp_co2_mean)
 
@@ -121,12 +121,12 @@ contains
 !  ------ Daily mean
 
   do l=0, LMAX
-     temp_surf(l) = inst(temp, psi*pi_180_inv, phi_node(l)*pi_180_inv)   ! in K
+     temp_surf(l) = inst(temp, psi*rad2deg, phi_node(l)*rad2deg)   ! in K
   end do
 
 !  ------ Amplitude of daily cycle
 
-  if (TEMP_SURF_AMP_EQ < eps) then
+  if (TEMP_SURF_AMP_EQ < epsil) then
 
      temp_surf_amp = 0.0_dp   ! no daily cycle
 
@@ -160,7 +160,7 @@ contains
 
   do l=0, LMAX
 
-     if (water_new(l) >= -eps) then
+     if (water_new(l) >= -epsil) then
         water(l) = max(water_new(l),0.0_dp)   ! new values -> old values
      else   ! physically meaningless
         stop ' Negative water content!'

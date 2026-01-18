@@ -182,13 +182,13 @@ real(dp), parameter :: pi = 3.141592653589793_dp
 real(dp), parameter :: pi_inv = 1.0_dp/pi
    !! Inverse of pi
 
-real(dp), parameter :: pi_180 = pi/180.0_dp
+real(dp), parameter :: deg2rad = pi/180.0_dp
    !! pi divided by 180 (-> deg to rad)
 
-real(dp), parameter :: pi_180_inv = 180.0_dp/pi
+real(dp), parameter :: rad2deg = 180.0_dp/pi
    !! 180 divided by pi (-> rad to deg)
 
-real(dp), parameter :: eps = 1.0e-05_dp
+real(dp), parameter :: epsil = 1.0e-05_dp
    !! Small number
 
 end module maic2_variables_m
