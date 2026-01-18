@@ -8,7 +8,7 @@ MAIC-2 User Manual
 (3) European Space Astronomy Centre (ESAC), Villanueva de la Cañada, Madrid, Spain  
 (4) Max Planck Institute for Solar System Research, Göttingen, Germany
 
-2026-01-16
+2026-01-18
 
 ---
 
@@ -150,22 +150,32 @@ The approximate computing times for the simulations, run with the gfortran compi
 Output files
 ------------
 
-Each simulation produces an output file `<run_name>_out.asc` in ASCII format, written by default to the directory `maic2_out/<run_name>`. (This can be changed by executing `maic2.sh` with the option `-d /path/to/output/directory`.) The file contains the following data:
+Each simulation produces two output files `<run_name>_out{1,2}.asc` in ASCII format, written by default to the directory `maic2_out/<run_name>`. (This can be changed by executing `maic2.sh` with the option `-d /path/to/output/directory`.) The files contain the following data:
+
+`<run_name>_out1.asc`: time-dependent variables
 
 Column 1: Time *t* \[a\]   
-Column 2: Solar longitude *L*<sub>s</sub> \[deg\]  
-Column 3: Latitude *φ* \[deg\]  
-Column 4: Surface temperature *T*(*φ*, *t*) \[K\]  
-Column 5: Evaporation rate *E*(*φ*, *t*) \[kg m<sup>−2</sup> a<sup>−1</sup>\]  
-Column 6: Condensation rate *C*(*φ*, *t*) \[kg m<sup>−2</sup> a<sup>−1</sup>\]  
-Column 7: Water content *ω*(*φ*, *t*) \[kg m<sup>−2</sup>\]  
-Column 8: Net mass balance *a*<sub>net</sub>(*φ*, *t*) \[mm a<sup>−1</sup> ice equivalent\]  
-Column 9: Ice thickness *H*(*φ*, *t*) \[m\]  
+Column 2: Solar longitude *L*<sub>s</sub>(*t*) \[deg\]  
+Column 3: Ice thickness at the north pole *H*<sub>NP</sub>(*t*) \[m\]  
+Column 4: Ice thickness at the south pole *H*<sub>SP</sub>(*t*) \[m\]  
+Column 5: Volume of the north-polar layered deposits (≥ 75°N) *V*<sub>NPLD</sub>(*t*) \[m<sup>3</sup>\]  
+Column 6: Volume of the south-polar layered deposits (≥ 75°S) *V*<sub>SPLD</sub>(*t*) \[m<sup>3</sup>\]
+
+`<run_name>_out2.asc`: latitude- and time-dependent variables
+
+Column 1: Time *t* \[a\]   
+Column 2: Latitude *φ* \[deg\]  
+Column 3: Surface temperature *T*(*φ*, *t*) \[K\]  
+Column 4: Evaporation rate *E*(*φ*, *t*) \[kg m<sup>−2</sup> a<sup>−1</sup>\]  
+Column 5: Condensation rate *C*(*φ*, *t*) \[kg m<sup>−2</sup> a<sup>−1</sup>\]  
+Column 6: Water content *ω*(*φ*, *t*) \[kg m<sup>−2</sup>\]  
+Column 7: Net mass balance *a*<sub>net</sub>(*φ*, *t*) \[mm a<sup>−1</sup> ice equivalent\]  
+Column 8: Ice thickness *H*(*φ*, *t*) \[m\]
 
 References
 ----------
 
-Greve, R., B. Grieger and O. J. Stenzel. 2010. MAIC-2, a latitudinal model for the Martian surface temperature, atmospheric water transport and surface glaciation. *Planetary and Space Science*, **58** (6), 931–940, [doi: 10.1016/j.pss.2010.03.002](https://doi.org/10.1016/j.pss.2010.03.002).
+Greve, R., B. Grieger and O. J. Stenzel. 2010. MAIC-2, a latitudinal model for the Martian surface temperature, atmospheric water transport and surface glaciation. *Planetary and Space Science*, **58** (6), 931-940, [doi: 10.1016/j.pss.2010.03.002](https://doi.org/10.1016/j.pss.2010.03.002).
 
 Greve, R., B. Grieger and O. J. Stenzel. 2012. Glaciation of Mars from 10 million years ago until 10 million years into the future simulated with the model MAIC-2. Presentation No. PPS03-06, JpGU Meeting, Makuhari Messe, Chiba, Japan, 24 May 2012, [doi: 10.5281/zenodo.3698541](https://doi.org/10.5281/zenodo.3698541).
 
