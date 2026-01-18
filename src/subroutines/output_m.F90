@@ -73,7 +73,7 @@ contains
               * ( 1.0_dp + sin( 0.5_dp*(phi_node(l)+phi_node(l+1)) ) )
 
   do l=1, LMAX-1
-     if (abs(phi_node(l)) >= phi_PLD) then
+     if (phi_node(l) <= -phi_PLD) then
         V_SPLD = V_SPLD + max(H(l), 0.0_dp) &
                     * (   sin( 0.5_dp*(phi_node(l)+phi_node(l+1)) ) &
                         - sin( 0.5_dp*(phi_node(l)+phi_node(l-1)) ) )
@@ -90,7 +90,7 @@ contains
               * ( 1.0_dp - sin( 0.5_dp*(phi_node(l)+phi_node(l-1)) ) )
 
   do l=LMAX-1, 1, -1
-     if (abs(phi_node(l)) >= phi_PLD) then
+     if (phi_node(l) >= phi_PLD) then
         V_NPLD = V_NPLD + max(H(l), 0.0_dp) &
                     * (   sin( 0.5_dp*(phi_node(l)+phi_node(l+1)) ) &
                         - sin( 0.5_dp*(phi_node(l)+phi_node(l-1)) ) )
