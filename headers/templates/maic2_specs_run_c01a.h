@@ -11,6 +11,20 @@
 
 !  ------------------
 
+#define PARAM_RHO_I 9.1e+02_dp
+!       Density of ice (in kg/m3)
+
+#define PARAM_RHO_W 1.0e+03_dp
+!       Density of pure water (in kg/m3)
+
+#define PARAM_G 3.72_dp
+!       Acceleration due to gravity (in m/s2)
+
+#define PARAM_R 3.396e+06_dp
+!       Radius of Mars (m)
+
+!  ------------------
+
 #define YEAR_SEC  31556926.0_dp
 !                       Conversion from earth years to seconds
 
