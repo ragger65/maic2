@@ -81,7 +81,7 @@ contains
 !         and seasonal cycle of surface temperatures --------
 
   if ( first_iteration &
-       .or. time - time_of_last_temp_update > (1.0e+03_dp*YEAR_SEC) ) &
+       .or. time - time_of_last_temp_update > (1.0e+03_dp*year2sec) ) &
      then
 
      print*, 'Surface temperature update ...'
@@ -177,7 +177,7 @@ contains
 
 #elif (COND==2) /* Continuous, quadratic dependence on humidity */
 
-  tau_cond = TAU_COND*YEAR_SEC   ! a -> s
+  tau_cond = TAU_COND * year2sec   ! a -> s
   call setcondpar(gravity=G, timescale=tau_cond)
   call getcond_2(temp_surf, water, cond)
 
@@ -222,7 +222,7 @@ contains
 
   ndata_insol = (insol_time_max-insol_time_min)/insol_time_stp
 
-  if (time/YEAR_SEC < real(insol_time_min,dp)) then
+  if (time*sec2year < real(insol_time_min,dp)) then
 
      ecc           = ecc_data(0)
      obl           = obl_data(0)
@@ -230,13 +230,13 @@ contains
      ave           = ave_data(0)
      insol_ma_90NS = insol_ma_90(0)
 
-  else if (time/YEAR_SEC < real(insol_time_max,dp)) then
+  else if (time*sec2year < real(insol_time_max,dp)) then
 
-     i_kl = floor( ((time/YEAR_SEC)-real(insol_time_min,dp)) &
+     i_kl = floor( ((time*sec2year)-real(insol_time_min,dp)) &
                    /real(insol_time_stp,dp) )
      i_kl = max(i_kl, 0)
 
-     i_gr = ceiling( ((time/YEAR_SEC)-real(insol_time_min,dp)) &
+     i_gr = ceiling( ((time*sec2year)-real(insol_time_min,dp)) &
                      /real(insol_time_stp,dp) )
      i_gr = min(i_gr, ndata_insol)
 
@@ -250,8 +250,8 @@ contains
 
      else
 
-        time_kl = (insol_time_min + i_kl*insol_time_stp) *YEAR_SEC
-        time_gr = (insol_time_min + i_gr*insol_time_stp) *YEAR_SEC
+        time_kl = (insol_time_min + i_kl*insol_time_stp) * year2sec
+        time_gr = (insol_time_min + i_gr*insol_time_stp) * year2sec
 
         ecc = ecc_data(i_kl) &
                   +(ecc_data(i_gr)-ecc_data(i_kl)) &

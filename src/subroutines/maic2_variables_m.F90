@@ -118,6 +118,12 @@ real(dp) :: rho_inv
 
 !-------- Further quantities -------- 
 
+real(dp) :: year2sec
+   !! 1 year (1 a) in seconds
+
+real(dp) :: sec2year
+   !! 1 second in years
+
 integer(i4b) :: insol_time_min
    !! Minimum time of the data values for the insolation etc.
 

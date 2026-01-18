@@ -104,7 +104,7 @@ contains
   ch_fmt = '(es14.6,f9.3,4es14.5)'
 
   write(12, trim(ch_fmt)) &
-            time/YEAR_SEC , &   ! in a
+            time*sec2year , &   ! in a
             ls*rad2deg    , &   ! in deg
             H_NP          , &   ! in m
             H_SP          , &   ! in m
@@ -115,14 +115,14 @@ contains
 
   do l=0, LMAX
      write(13, trim(ch_fmt)) &
-               time/YEAR_SEC                , &   ! in a
-               phi_node(l)*rad2deg          , &   ! in deg
-               temp_surf(l)                 , &   ! in K
-               evap(l)*YEAR_SEC             , &   ! in kg/(m^2*a)
-               cond(l)*YEAR_SEC             , &   ! in kg/(m^2*a)
-               water(l)                     , &   ! in kg/m^2
-               a_net(l)*1.0e+03_dp*YEAR_SEC , &   ! in mm ice equiv./a
-               H(l)                               ! in m
+               time*sec2year                  , &   ! in a
+               phi_node(l)*rad2deg            , &   ! in deg
+               temp_surf(l)                   , &   ! in K
+               evap(l)*year2sec               , &   ! in kg/(m^2*a)
+               cond(l)*year2sec               , &   ! in kg/(m^2*a)
+               water(l)                       , &   ! in kg/m^2
+               (a_net(l)*1.0e+03_dp)*year2sec , &   ! in mm ice equiv./a
+               H(l)                                 ! in m
   end do
 
   end subroutine output

@@ -83,21 +83,51 @@ character(len=64), parameter :: fmt1 = '(a)', &
 
 !-------- Setting of physical parameters --------
 
-  RHO_I = 9.1e+02_dp
-!       Density of ice = 910 kg/m3 
-!
-  RHO_W = 1.0e+03_dp
-!       Density of pure water = 1000 kg/m3
-!
-  G = 3.72_dp
-!       Gravity acceleration = 3.72 m/s2 
-!
-  R = 3.396e+06_dp
-!       Radius of Mars = 3396 km
+year2sec = real(YEAR_SEC,dp)
+sec2year = 1.0_dp/year2sec
 
-  RHO = RHO_I
-!       Density of ice-dust mixture
-!       (so far no dust considered)
+#if (defined(PARAM_RHO_I))
+RHO_I = real(PARAM_RHO_I,dp)
+#else
+ch_text = ' >>> PARAM_RHO_I not defined in run-specs header'
+write(6, fmt=trim(fmt1)) trim(ch_text)
+ch_text = '      -> default value for RHO_I used!'
+write(6, fmt=trim(fmt1)) trim(ch_text)
+RHO_I = 9.1e+02_dp   ! Density of ice = 910 kg/m3
+#endif
+
+#if (defined(PARAM_RHO_W))
+RHO_W = real(PARAM_RHO_W,dp)
+#else
+ch_text = ' >>> PARAM_RHO_W not defined in run-specs header'
+write(6, fmt=trim(fmt1)) trim(ch_text)
+ch_text = '      -> default value for RHO_W used!'
+write(6, fmt=trim(fmt1)) trim(ch_text)
+RHO_W = 1.0e+03_dp   ! Density of pure water = 1000 kg/m3
+#endif
+
+#if (defined(PARAM_G))
+G = real(PARAM_G,dp)
+#else
+ch_text = ' >>> PARAM_G not defined in run-specs header'
+write(6, fmt=trim(fmt1)) trim(ch_text)
+ch_text = '      -> default value for G used!'
+write(6, fmt=trim(fmt1)) trim(ch_text)
+G = 3.72_dp   ! Acceleration due to gravity = 3.72 m/s2
+#endif
+
+#if (defined(PARAM_R))
+R = real(PARAM_R,dp)
+#else
+ch_text = ' >>> PARAM_R not defined in run-specs header'
+write(6, fmt=trim(fmt1)) trim(ch_text)
+ch_text = '      -> default value for R used!'
+write(6, fmt=trim(fmt1)) trim(ch_text)
+R = 3.396e+06_dp   ! Radius of Mars = 3396000 m
+#endif
+
+RHO = RHO_I   ! Density of ice-dust mixture
+              ! (so far, no dust considered)
 
 rho_inv = 1.0_dp/RHO
 
@@ -259,17 +289,17 @@ close(10, status='keep')
 
 !-------- Conversion of time quantities --------
 
-time_init = TIME_INIT0*YEAR_SEC    ! a --> s
-time_end  = TIME_END0*YEAR_SEC     ! a --> s
-dtime     = DTIME0*YEAR_SEC        ! a --> s
+time_init = TIME_INIT0 * year2sec   ! a -> s
+time_end  = TIME_END0  * year2sec   ! a -> s
+dtime     = DTIME0     * year2sec   ! a -> s
 
 #if (OUTPUT==1)
 
-dtime_out = DTIME_OUT0 * YEAR_SEC    ! a --> s
+dtime_out = DTIME_OUT0 * year2sec    ! a -> s
 
 #elif (OUTPUT==2)
 do n=1, n_output
-   time_output(n) = time_output(n) * YEAR_SEC    ! a --> s
+   time_output(n) = time_output(n) * year2sec    ! a -> s
 end do
 
 #endif
@@ -290,8 +320,10 @@ if (ios /= 0) stop ' Error when opening the data file for orbital parameters!'
 read(21,*) ch_dummy, insol_time_min, insol_time_stp, insol_time_max
 
 if (ch_dummy /= '#') then
-   write(6,*) 'insol_time_min, insol_time_stp, insol_time_max not defined in'
-   write(6,*) 'data file!'
+   ch_text = ' >>> insol_time_min, insol_time_stp, insol_time_max'
+   write(6, fmt=trim(fmt1)) trim(ch_text)
+   ch_text = '     not defined in data file!'
+   write(6, fmt=trim(fmt1)) trim(ch_text)
 end if
 
 ndata_insol = (insol_time_max-insol_time_min)/insol_time_stp
@@ -300,7 +332,8 @@ if (ndata_insol > 100000) &
    stop 'Too many data in orbital-parameter-data file!'
 
 do n=0, ndata_insol
-   read(21,*) d_dummy, ecc_data(n), obl_data(n), cp_data(n), ave_data(n), insol_ma_90(n)
+   read(21,*) d_dummy, ecc_data(n), obl_data(n), &
+              cp_data(n), ave_data(n), insol_ma_90(n)
    obl_data(n) = obl_data(n) *deg2rad   ! deg -> rad
    ave_data(n) = ave_data(n) *deg2rad   ! deg -> rad
 end do
@@ -473,7 +506,7 @@ write(13, fmt=trim(fmt1)) trim(ch_line)
 
 !  ------ Begin of main loop
 
-write(6,*) ' '
+write(6, fmt=trim(fmt1)) ' '
 
 itercount=1; write(6,'(i10)') itercount
 
@@ -523,12 +556,12 @@ end do main_loop   ! End of main loop
 close(12, status='keep')
 close(13, status='keep')
 
-write(6,'(a)') ' '
-write(6,'(a)') ' '
-write(6,'(a)') &
-'             * * * maic2.F90  r e a d y * * *'
-write(6,'(a)') ' '
-write(6,'(a)') ' '
+write(6, fmt=trim(fmt1)) ' '
+write(6, fmt=trim(fmt1)) ' '
+ch_text = '             * * * maic2.F90  r e a d y * * *'
+write(6, fmt=trim(fmt1)) trim(ch_text)
+write(6, fmt=trim(fmt1)) ' '
+write(6, fmt=trim(fmt1)) ' '
 
 end program maic2
 
