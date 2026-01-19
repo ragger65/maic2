@@ -172,6 +172,19 @@ Column 6: Water content *ω*(*φ*, *t*) \[kg m<sup>−2</sup>\]
 Column 7: Net mass balance *a*<sub>net</sub>(*φ*, *t*) \[mm a<sup>−1</sup> ice equivalent\]  
 Column 8: Ice thickness *H*(*φ*, *t*) \[m\]
 
+Building the developer manual
+-----------------------------
+
+The MAIC-2 developer manual can be built locally with the tool [FORD (FORtran Documenter)](https://github.com/Fortran-FOSS-Programmers/ford) as follows:
+
+- Installing FORD with pip: `pip install ford`.
+
+- Creating/updating the manual: `ford ford.md` (in the main directory of the MAIC-2 installation).
+
+- Output is in HTML -> `docs/ford/index.html`.
+
+If required, see the [FORD documentation](https://forddocs.readthedocs.io) for further information.
+
 References
 ----------
 
