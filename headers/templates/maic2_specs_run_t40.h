@@ -132,7 +132,7 @@
 !                         1 : Data output with prescribed time step
 !                         2 : Data output at arbitrarily specified times
 
-#define DTIME_OUT0 ((MARS_YEAR/YEAR_SEC)*1000.0_dp)
+#define DTIME_OUT0 ((MARS_YEAR/YEAR_SEC)*500.0_dp)
 !                             Time step (in a) for data output
 !                             (only for OUTPUT==1)
 
