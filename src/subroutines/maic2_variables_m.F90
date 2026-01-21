@@ -124,14 +124,14 @@ real(dp) :: year2sec
 real(dp) :: sec2year
    !! 1 second in years
 
-integer(i4b) :: insol_time_min
-   !! Minimum time of the data values for the insolation etc.
+integer(i4b) :: orb_par_time_min
+   !! Minimum time of the data values for the orbital parameters.
 
-integer(i4b) :: insol_time_stp
-   !! Time step of the data values for the insolation etc.
+integer(i4b) :: orb_par_time_stp
+   !! Time step of the data values for the orbital parameters.
 
-integer(i4b) :: insol_time_max
-   !! Maximum time of the data values for the insolation etc.
+integer(i4b) :: orb_par_time_max
+   !! Maximum time of the data values for the orbital parameters.
 
 integer(i4b) :: itercount
    !! Counter for the number of time integration steps

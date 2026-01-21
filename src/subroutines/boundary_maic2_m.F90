@@ -216,13 +216,13 @@ contains
   real(dp), intent(in)  :: time
   real(dp), intent(out) :: ecc, obl, cp, ave, insol_ma_90NS
 
-  integer(i4b) :: ndata_insol
+  integer(i4b) :: ndata_orb_par
   integer(i4b) :: i_kl, i_gr
   real(dp) :: time_kl, time_gr, ave_data_i_kl, ave_data_i_gr
 
-  ndata_insol = (insol_time_max-insol_time_min)/insol_time_stp
+  ndata_orb_par = (orb_par_time_max-orb_par_time_min)/orb_par_time_stp
 
-  if (time*sec2year < real(insol_time_min,dp)) then
+  if (time*sec2year < real(orb_par_time_min,dp)) then
 
      ecc           = ecc_data(0)
      obl           = obl_data(0)
@@ -230,15 +230,15 @@ contains
      ave           = ave_data(0)
      insol_ma_90NS = insol_ma_90(0)
 
-  else if (time*sec2year < real(insol_time_max,dp)) then
+  else if (time*sec2year < real(orb_par_time_max,dp)) then
 
-     i_kl = floor( ((time*sec2year)-real(insol_time_min,dp)) &
-                   /real(insol_time_stp,dp) )
+     i_kl = floor( ((time*sec2year)-real(orb_par_time_min,dp)) &
+                   /real(orb_par_time_stp,dp) )
      i_kl = max(i_kl, 0)
 
-     i_gr = ceiling( ((time*sec2year)-real(insol_time_min,dp)) &
-                     /real(insol_time_stp,dp) )
-     i_gr = min(i_gr, ndata_insol)
+     i_gr = ceiling( ((time*sec2year)-real(orb_par_time_min,dp)) &
+                     /real(orb_par_time_stp,dp) )
+     i_gr = min(i_gr, ndata_orb_par)
 
      if (i_kl == i_gr) then
 
@@ -250,8 +250,8 @@ contains
 
      else
 
-        time_kl = (insol_time_min + i_kl*insol_time_stp) * year2sec
-        time_gr = (insol_time_min + i_gr*insol_time_stp) * year2sec
+        time_kl = (orb_par_time_min + i_kl*orb_par_time_stp) * year2sec
+        time_gr = (orb_par_time_min + i_gr*orb_par_time_stp) * year2sec
 
         ecc = ecc_data(i_kl) &
                   +(ecc_data(i_gr)-ecc_data(i_kl)) &
@@ -288,11 +288,11 @@ contains
 
   else
 
-     ecc           = ecc_data(ndata_insol)
-     obl           = obl_data(ndata_insol)
-     cp            = cp_data(ndata_insol)
-     ave           = ave_data(ndata_insol)
-     insol_ma_90NS = insol_ma_90(ndata_insol)
+     ecc           = ecc_data(ndata_orb_par)
+     obl           = obl_data(ndata_orb_par)
+     cp            = cp_data(ndata_orb_par)
+     ave           = ave_data(ndata_orb_par)
+     insol_ma_90NS = insol_ma_90(ndata_orb_par)
 
   end if
 

@@ -62,7 +62,7 @@ contains
    end if
 
    if ( present(gamma_reg_para) ) then
-      gamma_reg = gamma_reg_para   ! regolith-insolation coefficient [in m]
+      gamma_reg = gamma_reg_para   ! regolith-insulation coefficient [in m]
    else
       gamma_reg = 1.11e+11_dp
    end if

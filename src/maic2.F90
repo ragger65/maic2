@@ -2,7 +2,7 @@
 !
 !  Program :  m a i c 2
 !
-#define DATE '2026-01-18'
+#define DATE '2026-01-21'
 !
 !! Main program of MAIC-2.
 !!
@@ -65,7 +65,7 @@ integer(i4b) :: l, n
 integer(i4b) :: n1, n2
 integer(i4b) :: ios, istat
 integer(i4b) :: itercount_max
-integer(i4b) :: ndata_insol
+integer(i4b) :: ndata_orb_par
 real(dp) :: time, time_init, time_end, dtime
 real(dp) :: ls, psi
 real(dp) :: dphi_equi
@@ -186,7 +186,8 @@ write(10, fmt=trim(fmt2)) 'NTIME = ', NTIME
 
 write(10, fmt=trim(fmt1)) ' '
 
-write(10, fmt=trim(fmt1)) 'INSOL_MA_90N_FILE = ' // trim(INSOL_MA_90N_FILE)
+write(10, fmt=trim(fmt1)) 'ORBITAL_PARAMETER_FILE = ' &
+                          // trim(ORBITAL_PARAMETER_FILE)
 
 write(10, fmt=trim(fmt1)) ' '
 
@@ -313,25 +314,25 @@ ave_data    = 0.0_dp
 cp_data     = 0.0_dp
 
 open(21, iostat=ios, &
-     file=trim(IN_PATH)//'/'//trim(INSOL_MA_90N_FILE), &
+     file=trim(IN_PATH)//'/'//trim(ORBITAL_PARAMETER_FILE), &
      status='old')
 if (ios /= 0) stop ' Error when opening the data file for orbital parameters!'
 
-read(21,*) ch_dummy, insol_time_min, insol_time_stp, insol_time_max
+read(21,*) ch_dummy, orb_par_time_min, orb_par_time_stp, orb_par_time_max
 
 if (ch_dummy /= '#') then
-   ch_text = ' >>> insol_time_min, insol_time_stp, insol_time_max'
+   ch_text = ' >>> orb_par_time_min, orb_par_time_stp, orb_par_time_max'
    write(6, fmt=trim(fmt1)) trim(ch_text)
    ch_text = '     not defined in data file!'
    write(6, fmt=trim(fmt1)) trim(ch_text)
 end if
 
-ndata_insol = (insol_time_max-insol_time_min)/insol_time_stp
+ndata_orb_par = (orb_par_time_max-orb_par_time_min)/orb_par_time_stp
 
-if (ndata_insol > 100000) &
+if (ndata_orb_par > 100000) &
    stop 'Too many data in orbital-parameter-data file!'
 
-do n=0, ndata_insol
+do n=0, ndata_orb_par
    read(21,*) d_dummy, ecc_data(n), obl_data(n), &
               cp_data(n), ave_data(n), insol_ma_90(n)
    obl_data(n) = obl_data(n) *deg2rad   ! deg -> rad
