@@ -49,9 +49,8 @@
 
 !  ------------------
 
-#define INSOL_MA_90N_FILE 'mars_laskar_const45.dat'
-!                       Name of the file containing the mean-annual north-polar
-!                       insolation
+#define ORBITAL_PARAMETER_FILE 'mars_laskar_const45.dat'
+!                       Name of the file containing the orbital parameters
 
 #define ALBEDO 0.3_dp
 !                       Planetary mean albedo.
