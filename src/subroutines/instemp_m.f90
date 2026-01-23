@@ -2,9 +2,9 @@
 !
 !  Module :  i n s t e m p _ m
 !
-!! Computation of the daily mean surface temperature of Mars
-!! based on obliquity, eccentricity and the anomaly of vernal
-!! equinox (local insolation temperature = LIS scheme).
+!! Computation of the daily mean surface temperature of Mars based on
+!! obliquity, eccentricity and the anomaly of vernal equinox
+!! (local insolation temperature = LIT scheme).
 !!
 !!##### Authors
 !!
@@ -30,9 +30,9 @@
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 !-------------------------------------------------------------------------------
-!> Computation of the daily mean surface temperature of Mars
-!! based on obliquity, eccentricity and the anomaly of vernal
-!! equinox (local insolation temperature = LIS scheme).
+!> Computation of the daily mean surface temperature of Mars based on
+!! obliquity, eccentricity and the anomaly of vernal equinox
+!! (local insolation temperature = LIT scheme).
 !-------------------------------------------------------------------------------
 module instemp_m
 
@@ -40,17 +40,20 @@ module instemp_m
 
    implicit none
 
-   !> Surface temperatures
    type ins
+      !! Martian surface temperatures
       real(dp) :: t(0:360,-90:90)
+         !! Temperature as a function of time and latitude
       real(dp) :: tam(-90:90)
+         !! Annual mean temperature as a function of latitude
       real(dp) :: tmax(-90:90)
+         !! Annual maximum temperature as a function of latitude
    end type ins
 
 contains
 
 !-------------------------------------------------------------------------------
-!> Main subroutine of module instemp.
+!> Main subroutine of module instemp_m.
 !-------------------------------------------------------------------------------
    subroutine setinstemp ( o, ecc, ave, obl, sma, sa, sac, op, ct )
 
@@ -117,7 +120,7 @@ contains
       if ( present(sac) ) then
          alb_co2 = sac
       else
-         alb_co2 = 0.7_dp
+         alb_co2 = alb
       end if
       if ( present(op) ) then
          u = op
@@ -239,8 +242,10 @@ contains
    real(dp) function instam ( o, phi )
 
       implicit none
-      type(ins)    :: o
-      real(dp)     :: phi
+
+      type(ins) :: o
+      real(dp)  :: phi
+
       integer(i4b) :: iphi1, iphi2
 
       iphi1 = nint( phi - 0.5_dp )
@@ -261,8 +266,10 @@ contains
    real(dp) function instmax ( o, phi )
 
       implicit none
-      type(ins)    :: o
-      real(dp)     :: phi
+
+      type(ins) :: o
+      real(dp)  :: phi
+
       integer(i4b) :: iphi1, iphi2
 
       iphi1 = nint( phi - 0.5_dp )
@@ -283,8 +290,10 @@ contains
    real(dp) function inst ( o, psi, phi )
 
       implicit none
-      type(ins)    :: o
-      real(dp)     :: psi, phi
+
+      type(ins) :: o
+      real(dp)  :: psi, phi
+
       integer(i4b) :: ipsi1, ipsi2
 
       ipsi1 = nint( psi - 0.5_dp )
@@ -305,9 +314,11 @@ contains
    real(dp) function inst1 ( o, ipsi, phi )
 
       implicit none
+
       type(ins)    :: o
       integer(i4b) :: ipsi
       real(dp)     :: phi
+
       integer(i4b) :: iphi1, iphi2
 
       iphi1 = nint( phi - 0.5_dp )

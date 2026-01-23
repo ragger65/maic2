@@ -2,7 +2,7 @@
 !
 !  Program :  m a i c 2
 !
-#define DATE '2026-01-21'
+#define DATE '2026-01-23'
 !
 !! Main program of MAIC-2.
 !!
