@@ -137,15 +137,15 @@ If you prefer to run all simulations consecutively, execute the script `multi_ma
 
 `(./multi_maic2.sh) >tmp/out_mjob.dat 2>&1 &`
 
-The approximate computing times for the simulations, run with the gfortran compiler v13.3.1 for Linux (optimization options `-O3 -ffast-math -ffree-line-length-none`) on a single core of a 2 × 14-Core Intel Xeon E5-2690 v4 (2.6 GHz) PC under openSUSE Leap 15.6, are as follows:
+The approximate computing times for the simulations, run with revision 576a09e2c (dated 2026-01-23) and the gfortran compiler v13.3.1 for Linux (optimization options `-O3 -ffast-math -ffree-line-length-none`) on a single core of a 2 × 14-Core Intel Xeon E5-2690 v4 (2.6 GHz) PC under openSUSE Leap 15.6, are as follows:
 
   | Run      | Time    |   | Run     | Time     |   | Run     | Time     |
   |:-------- |:------- |:- |:------- |:-------- |:- |:------- |:-------- |
-  | run_c01a | 0.1 sec |   | run_t06 |  8.5 hrs |   | run_t39 |  8.5 hrs |
-  | run_c01  | 8.5 hrs |   | run_t07 |  8.5 hrs |   | run_t40 | 17.0 hrs |
-  | run_c02  | 8.5 hrs |   | run_t08 |  8.5 hrs |   |         |          |
-  | run_c03  | 8.5 hrs |   | run_t12 |  8.5 hrs |   |         |          |
-  | run_c04  | 8.5 hrs |   | run_t14 | 25.5 hrs |   |         |          |
+  | run_c01a | 0.1 sec |   | run_t06 |  8.4 hrs |   | run_t39 |  7.5 hrs |
+  | run_c01  | 8.4 hrs |   | run_t07 |  8.4 hrs |   | run_t40 | 15.0 hrs |
+  | run_c02  | 8.4 hrs |   | run_t08 |  8.4 hrs |   |         |          |
+  | run_c03  | 8.4 hrs |   | run_t12 |  8.4 hrs |   |         |          |
+  | run_c04  | 8.4 hrs |   | run_t14 | 25.2 hrs |   |         |          |
 
 Output files
 ------------
