@@ -79,7 +79,8 @@ logical :: output_flag
 
 character(len=64), parameter :: fmt1 = '(a)', &
                                 fmt2 = '(a,i0)', &
-                                fmt3 = '(a,es13.5)'
+                                fmt3 = '(a,es13.5)', &
+                                fmt4 = '(a,es18.10)'
 
 !-------- Setting of physical parameters --------
 
@@ -168,17 +169,17 @@ write(10, fmt=trim(fmt2)) 'LMAX = ', LMAX
 
 write(10, fmt=trim(fmt1)) ' '
 
-write(10, fmt=trim(fmt3)) 'YEAR_SEC  =', YEAR_SEC
-write(10, fmt=trim(fmt3)) 'MARS_YEAR =', MARS_YEAR
-write(10, fmt=trim(fmt3)) 'MARS_DAY  =', MARS_DAY
+write(10, fmt=trim(fmt4)) 'YEAR_SEC  =', YEAR_SEC
+write(10, fmt=trim(fmt4)) 'MARS_YEAR =', MARS_YEAR
+write(10, fmt=trim(fmt4)) 'MARS_DAY  =', MARS_DAY
 
 write(10, fmt=trim(fmt1)) ' '
 
-write(10, fmt=trim(fmt3)) 'TIME_INIT0 =', TIME_INIT0
-write(10, fmt=trim(fmt3)) 'TIME_END0  =', TIME_END0
+write(10, fmt=trim(fmt4)) 'TIME_INIT0 =', TIME_INIT0
+write(10, fmt=trim(fmt4)) 'TIME_END0  =', TIME_END0
 
 write(10, fmt=trim(fmt1)) ' '
-write(10, fmt=trim(fmt3)) 'DTIME0 =', DTIME0
+write(10, fmt=trim(fmt4)) 'DTIME0 =', DTIME0
 
 write(10, fmt=trim(fmt1)) ' '
 
@@ -187,8 +188,8 @@ write(10, fmt=trim(fmt2)) 'NTIME = ', NTIME
 write(10, fmt=trim(fmt1)) ' '
 
 #if (defined(SOLAR_CONSTANT))
-write(10, fmt=trim(fmt1)) ' '
 write(10, fmt=trim(fmt3)) 'SOLAR_CONSTANT =', SOLAR_CONSTANT
+write(10, fmt=trim(fmt1)) ' '
 #endif
 
 write(10, fmt=trim(fmt1)) 'ORBITAL_PARAMETER_FILE = ' &

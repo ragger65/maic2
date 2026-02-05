@@ -25,13 +25,15 @@
 
 !  ------------------
 
-#define YEAR_SEC  31556926.0_dp
+#define YEAR_SEC 31556925.445_dp
 !                       Conversion from earth years to seconds
+!                       (1 a = 31556925.445 s;
+!                        IUPAC-IUGS year for epoch 2000.0)
 
 #define MARS_YEAR 59512320.0_dp
 !                       Length of Martian year in seconds (PlaSim calendar)
 
-#define MARS_DAY  (MARS_YEAR/672.0_dp)
+#define MARS_DAY (MARS_YEAR/672.0_dp)
 !                       Length of Martian day in seconds (PlaSim calendar)
 
 #define TIME_INIT0 -1.0e+07_dp
@@ -48,6 +50,11 @@
 !                       computation of the orbital position (true anomaly)
 
 !  ------------------
+
+#define SOLAR_CONSTANT 1361.0_dp
+!                       Solar constant
+!                       at Earth's average distance from the Sun (1 AU)
+!                       (in W/m2)
 
 #define ORBITAL_PARAMETER_FILE 'mars_laskar_2004.dat'
 !                       Name of the file containing the orbital parameters
