@@ -55,16 +55,16 @@ contains
 !-------------------------------------------------------------------------------
 !> Main subroutine of module instemp_m.
 !-------------------------------------------------------------------------------
-   subroutine setinstemp ( o, gsc, ecc, ave, obl, sma, sa, sac, op, ct )
+   subroutine setinstemp ( o, gsc, sma, ecc, ave, obl, sa, sac, op, ct )
 
       implicit none
 
       type(ins)          :: o
       real(dp), optional :: gsc   ! solar constant for Earth (in W/m2)
+      real(dp), optional :: sma   ! semi-major axis (in AU)
       real(dp), optional :: ecc   ! eccentricity
       real(dp), optional :: ave   ! anomaly of vernal equinox (in degrees)
       real(dp), optional :: obl   ! obliquity (in degrees)
-      real(dp), optional :: sma   ! semi-major axis (in AU)
       real(dp), optional :: sa    ! surface albedo (planetary mean)
       real(dp), optional :: sac   ! surface albedo (seasonal CO2 ice caps)
       real(dp), optional :: op    ! orbital period (in seconds)
@@ -97,6 +97,12 @@ contains
          j0 = 1361.0_dp   ! nominal value defined by the IAU (2015)
       end if
 
+      if ( present(sma) ) then
+         a = sma
+      else
+         a = 1.524_dp
+      end if
+
       if ( present(ecc) ) then
          e = ecc
       else
@@ -113,12 +119,6 @@ contains
          eps = obl
       else
          eps = 25.19_dp
-      end if
-
-      if ( present(sma) ) then
-         a = sma
-      else
-         a = 1.524_dp
       end if
 
       if ( present(sa) ) then

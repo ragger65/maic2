@@ -189,7 +189,10 @@ write(10, fmt=trim(fmt1)) ' '
 
 #if (defined(SOLAR_CONSTANT))
 write(10, fmt=trim(fmt3)) 'SOLAR_CONSTANT =', SOLAR_CONSTANT
-write(10, fmt=trim(fmt1)) ' '
+#endif
+
+#if (defined(SEMI_MAJOR_AXIS))
+write(10, fmt=trim(fmt3)) 'SEMI_MAJOR_AXIS =', SEMI_MAJOR_AXIS
 #endif
 
 write(10, fmt=trim(fmt1)) 'ORBITAL_PARAMETER_FILE = ' &

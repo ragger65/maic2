@@ -60,7 +60,8 @@ contains
 
   integer(i4b) :: l, n, n1, n2
   real(dp) :: temp_co2_mean
-  real(dp) :: gsc, ecc, obl, cp, ave, insol_ma_90NS, time_help
+  real(dp) :: gsc, sma, ecc, obl, cp, ave, insol_ma_90NS
+  real(dp) :: time_help
   real(dp) :: evap_coeff, tau_cond
   real(dp) :: dtime_inv
   type (ins), save :: temp
@@ -70,12 +71,18 @@ contains
 
   dtime_inv = 1.0_dp/dtime
 
-!-------- Solar constant --------
+!-------- Solar constant, semi-major axis --------
 
 #if (defined(SOLAR_CONSTANT))
   gsc = SOLAR_CONSTANT
 #else
   gsc = 1361.0_dp   ! nominal value defined by the IAU (2015)
+#endif
+
+#if (defined(SEMI_MAJOR_AXIS))
+  sma = SEMI_MAJOR_AXIS
+#else
+  sma = 1.524_dp
 #endif
 
 !-------- Surface pressure, CO2 condensation temperature --------
@@ -101,7 +108,7 @@ contains
      call get_psi_tab(ecc, ave)
 
      call setinstemp(temp, &
-                     gsc = gsc, &
+                     gsc = gsc, sma = sma, &
                      ecc = ecc, ave = ave*rad2deg, obl = obl*rad2deg, &
                      sa = ALBEDO, sac = ALBEDO_CO2, op = MARS_YEAR, &
                      ct = temp_co2_mean)
