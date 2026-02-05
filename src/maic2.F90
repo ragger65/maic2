@@ -2,7 +2,7 @@
 !
 !  Program :  m a i c 2
 !
-#define DATE '2026-01-23'
+#define DATE '2026-02-05'
 !
 !! Main program of MAIC-2.
 !!
@@ -185,6 +185,11 @@ write(10, fmt=trim(fmt1)) ' '
 write(10, fmt=trim(fmt2)) 'NTIME = ', NTIME
 
 write(10, fmt=trim(fmt1)) ' '
+
+#if (defined(SOLAR_CONSTANT))
+write(10, fmt=trim(fmt1)) ' '
+write(10, fmt=trim(fmt3)) 'SOLAR_CONSTANT =', SOLAR_CONSTANT
+#endif
 
 write(10, fmt=trim(fmt1)) 'ORBITAL_PARAMETER_FILE = ' &
                           // trim(ORBITAL_PARAMETER_FILE)

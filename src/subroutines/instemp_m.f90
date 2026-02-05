@@ -55,11 +55,12 @@ contains
 !-------------------------------------------------------------------------------
 !> Main subroutine of module instemp_m.
 !-------------------------------------------------------------------------------
-   subroutine setinstemp ( o, ecc, ave, obl, sma, sa, sac, op, ct )
+   subroutine setinstemp ( o, gsc, ecc, ave, obl, sma, sa, sac, op, ct )
 
       implicit none
 
       type(ins)          :: o
+      real(dp), optional :: gsc   ! solar constant for Earth (in W/m2)
       real(dp), optional :: ecc   ! eccentricity
       real(dp), optional :: ave   ! anomaly of vernal equinox (in degrees)
       real(dp), optional :: obl   ! obliquity (in degrees)
@@ -90,43 +91,54 @@ contains
 
       one_three_hundred_and_sixtieth = 1.0_dp/360.0_dp
 
-      j0 = 1367.6_dp   ! solar constant for Earth (in W/m**2)
+      if ( present(gsc) ) then
+         j0 = gsc
+      else
+         j0 = 1361.0_dp   ! nominal value defined by the IAU (2015)
+      end if
 
       if ( present(ecc) ) then
          e = ecc
       else
          e = 0.0935_dp
       end if
+
       if ( present(ave) ) then
          psi0 = ave
       else
          psi0 = 109.13_dp
       end if
+
       if ( present(obl) ) then
          eps = obl
       else
          eps = 25.19_dp
       end if
+
       if ( present(sma) ) then
          a = sma
       else
          a = 1.524_dp
       end if
+
       if ( present(sa) ) then
          alb = sa
       else
          alb = 0.3_dp
       end if
+
       if ( present(sac) ) then
          alb_co2 = sac
       else
          alb_co2 = alb
       end if
+
       if ( present(op) ) then
          u = op
       else
          u = 686.95_dp*24._dp*3600._dp
       end if
+
       if ( present(ct) ) then
          tco2 = ct
       else
