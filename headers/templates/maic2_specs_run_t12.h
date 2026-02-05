@@ -56,6 +56,9 @@
 !                       at Earth's average distance from the Sun (1 AU)
 !                       (in W/m2)
 
+#define SEMI_MAJOR_AXIS 1.524_dp
+!                       Semi-major axis of Mars' orbit around the Sun (in AU)
+
 #define ORBITAL_PARAMETER_FILE 'mars_laskar_2004.dat'
 !                       Name of the file containing the orbital parameters
 
