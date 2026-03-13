@@ -8,7 +8,7 @@ MAIC-2 User Manual
 (3) European Space Astronomy Centre (ESAC), Villanueva de la Cañada, Madrid, Spain  
 (4) Max Planck Institute for Solar System Research, Göttingen, Germany
 
-2026-01-18
+2026-03-13
 
 ---
 
