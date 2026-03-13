@@ -22,9 +22,9 @@ graph: true
 output_dir: ./docs/ford
 force: true
 
-The Mars Atmosphere-Ice Coupler MAIC-2 is a simple, latitudinal (zonally averaged) model that consists of a set of parameterizations for the surface temperature, the atmospheric water transport and the surface mass balance (condensation minus evaporation) of water ice. It is driven directly by the orbital parameters obliquity, eccentricity and solar longitude of perihelion.
+The Mars Atmosphere-Ice Coupler MAIC-2 is a simple, latitudinal (zonally averaged) model for the surface temperature, the atmospheric water transport and the surface mass balance (condensation minus evaporation) of water ice. It is driven directly by the orbital parameters obliquity, eccentricity and solar longitude of perihelion.
 
-The underlying physics is explained in the paper by Greve et al. (2010) and the presentation by Greve et al. (2012).
+The underlying physics is mainly explained in the paper by Greve et al. (2010), with minor updates in the presentation by Greve et al. (2012) and the paper by Greve et al. (2026).
 
 ##### Resources
 
@@ -45,6 +45,8 @@ MAIC-2 is free and open-source software, licensed under the terms of the [GNU Ge
 Greve, R., B. Grieger and O. J. Stenzel. 2010. MAIC-2, a latitudinal model for the Martian surface temperature, atmospheric water transport and surface glaciation. Planet. Space Sci., 58 (6), 931–940. <https://doi.org/10.1016/j.pss.2010.03.002>.
 
 Greve, R., B. Grieger and O. J. Stenzel. 2012. Glaciation of Mars from 10 million years ago until 10 million years into the future simulated with the model MAIC-2. Presentation No. PPS03-06, JpGU Meeting, Makuhari, Chiba, Japan, 24 May 2012. <https://doi.org/10.5281/zenodo.3698542>.
+
+Greve, R., B. Grieger and O. J. Stenzel. 2026. MAIC-2 v2.3: a Fortran program for simulating the surface temperature, atmospheric water transport and surface glaciation of the planet Mars. *Journal of Open Source Software* (submitted).
 
 @note
 This developer manual is generated automatically using [FORD](https://github.com/Fortran-FOSS-Programmers/ford).  
