@@ -8,16 +8,16 @@ MAIC-2 User Manual
 (3) European Space Astronomy Centre (ESAC), Villanueva de la Cañada, Madrid, Spain  
 (4) Max Planck Institute for Solar System Research, Göttingen, Germany
 
-2026-01-18
+2026-03-13
 
 ---
 
 Introduction
 ------------
 
-The Mars Atmosphere-Ice Coupler MAIC-2 is a simple, latitudinal (zonally averaged) model that consists of a set of parameterizations for the surface temperature, the atmospheric water transport and the surface mass balance (condensation minus evaporation) of water ice. It is driven directly by the orbital parameters obliquity, eccentricity and solar longitude of perihelion.
+The Mars Atmosphere-Ice Coupler MAIC-2 is a simple, latitudinal (zonally averaged) model for the surface temperature, the atmospheric water transport and the surface mass balance (condensation minus evaporation) of water ice. It is driven directly by the orbital parameters obliquity, eccentricity and solar longitude of perihelion.
 
-The underlying physics is explained in the paper by Greve et al. (2010) and the presentation by Greve et al. (2012).
+The underlying physics is mainly explained in the paper by Greve et al. (2010), with minor updates in the presentation by Greve et al. (2012) and the paper by Greve et al. (2026).
 
 ### Resources
 
@@ -40,7 +40,7 @@ Requirements
 
 - Unix-like system (e.g., Linux).
 
-- Fortran compiler.  
+- Fortran 95/2003 compiler.  
   So far, the GNU GCC (gfortran) and Intel Fortran (ifort, ifx) compilers are supported.
 
 Download
@@ -119,15 +119,15 @@ For a number of test simulations, the run-specs header files are contained in th
   | run_t08     | Simulation #8 by Greve et al. (2010)                                                         |
   | run_t12     | Simulation #5 by Greve et al. (2010)                                                         |
   | run_t14     | Simulation #6 by Greve et al. (2010), <br>but from 20 Ma ago until 10 Ma into the future     |
-  | run_t39     | Simulation by Greve et al. (2012) (pp. 14-15)                                                |
-  | run_t40     | Simulation by Greve et al. (2012) (pp. 14-15)                                                |
+  | run_t39     | Simulation #39 by Greve et al. (2012, 2026)                                                  |
+  | run_t40     | Simulation #40 by Greve et al. (2012, 2026)                                                  |
 
 How to run a simulation
 -----------------------
 
-For example, to run simulation `run_t06`, use the script `maic2.sh`as follows:  
+For example, to run the short simulation `run_c01a`, use the script `maic2.sh`as follows:  
 
-`(./maic2.sh -m run_t06) >tmp/out_job_t06.dat 2>&1 &`  
+`(./maic2.sh -m run_c01a) >tmp/out_job_c01a.dat 2>&1 &`  
 
 (bash required). Accordingly for the other simulations.
 
@@ -191,5 +191,7 @@ References
 Greve, R., B. Grieger and O. J. Stenzel. 2010. MAIC-2, a latitudinal model for the Martian surface temperature, atmospheric water transport and surface glaciation. *Planetary and Space Science*, **58** (6), 931-940, [doi: 10.1016/j.pss.2010.03.002](https://doi.org/10.1016/j.pss.2010.03.002).
 
 Greve, R., B. Grieger and O. J. Stenzel. 2012. Glaciation of Mars from 10 million years ago until 10 million years into the future simulated with the model MAIC-2. Presentation No. PPS03-06, JpGU Meeting, Makuhari Messe, Chiba, Japan, 24 May 2012, [doi: 10.5281/zenodo.3698541](https://doi.org/10.5281/zenodo.3698541).
+
+Greve, R., B. Grieger and O. J. Stenzel. 2026. MAIC-2 v2.3: a Fortran program for simulating the surface temperature, atmospheric water transport and surface glaciation of the planet Mars. *Journal of Open Source Software* (submitted).
 
 Laskar, J., A. C. M. Correia, M. Gastineau, F. Joutel, B. Levrard and P. Robutel. 2004. Long term evolution and chaotic diffusion of the insolation quantities of Mars. *Icarus*, **170** (2), 343-364, [doi: 10.1016/j.icarus.2004.04.005](https://doi.org/10.1016/j.icarus.2004.04.005).
