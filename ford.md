@@ -46,7 +46,7 @@ Greve, R., B. Grieger and O. J. Stenzel. 2010. MAIC-2, a latitudinal model for t
 
 Greve, R., B. Grieger and O. J. Stenzel. 2012. Glaciation of Mars from 10 million years ago until 10 million years into the future simulated with the model MAIC-2. Presentation No. PPS03-06, JpGU Meeting, Makuhari, Chiba, Japan, 24 May 2012. <https://doi.org/10.5281/zenodo.3698542>.
 
-Greve, R., B. Grieger and O. J. Stenzel. 2026. MAIC-2 v2.3: A Fortran program for simulating the surface temperature, atmospheric water transport and surface glaciation of the planet Mars. *Planetary Research* (in preparation).
+Greve, R., B. Grieger and O. J. Stenzel. 2026. MAIC-2 v2.3: A Fortran program for simulating the surface temperature, atmospheric water transport and surface glaciation of the planet Mars. *Planetary Research* (submitted).
 
 @note
 This developer manual is generated automatically using [FORD](https://github.com/Fortran-FOSS-Programmers/ford).  

@@ -192,6 +192,6 @@ Greve, R., B. Grieger and O. J. Stenzel. 2010. MAIC-2, a latitudinal model for t
 
 Greve, R., B. Grieger and O. J. Stenzel. 2012. Glaciation of Mars from 10 million years ago until 10 million years into the future simulated with the model MAIC-2. Presentation No. PPS03-06, JpGU Meeting, Makuhari Messe, Chiba, Japan, 24 May 2012, [doi: 10.5281/zenodo.3698541](https://doi.org/10.5281/zenodo.3698541).
 
-Greve, R., B. Grieger and O. J. Stenzel. 2026. MAIC-2 v2.3: A Fortran program for simulating the surface temperature, atmospheric water transport and surface glaciation of the planet Mars. *Planetary Research* (in preparation).
+Greve, R., B. Grieger and O. J. Stenzel. 2026. MAIC-2 v2.3: A Fortran program for simulating the surface temperature, atmospheric water transport and surface glaciation of the planet Mars. *Planetary Research* (submitted).
 
 Laskar, J., A. C. M. Correia, M. Gastineau, F. Joutel, B. Levrard and P. Robutel. 2004. Long term evolution and chaotic diffusion of the insolation quantities of Mars. *Icarus*, **170** (2), 343-364, [doi: 10.1016/j.icarus.2004.04.005](https://doi.org/10.1016/j.icarus.2004.04.005).
